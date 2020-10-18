@@ -1,44 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body{
-            background-image: url('img/math.jpg');
-            -webkit-background-size: cover;
-        }
-        input::placeholder {
-            color: #718096;
-            font-weight: 300;
-        }
-        input:focus{
-            outline: none;
-        }
-
-        .flex-100 {
-            flex: 0 1 100%;
-        }
-
-        .max-width-form {
-            max-width: 600px;
-            padding-top: 20px;
-        }
-        div#tes{
-            background-color:    rgba(0,0,0, 0.6);
-            border-radius: 3%;
-        }
-        label{
-            color: white;
-        }
-    </style>
-</head>
-<body>
+<%- include("../header") -%>
+    <%- include("../../public/style-login-register") -%>
 
     <div class="container mx-auto md:mt-8 mt-5">
-        <div class="mx-auto flex flex-wrap max-width-form text-gray-800" id="tes">
+        <div class="mx-auto flex justify-center pt-2 max-w-xl">
+            <img src="img/name.png" alt="Logo" width="300" height="100">
+        </div>
+        <div class="mx-auto flex flex-wrap max-w-xl pt-5 rounded-md" id="tes">
             <!-- 	form	 -->
             <div class="flex flex-100">
                 <form class="flex-100" action="/login" method="POST">
@@ -55,17 +22,17 @@
 
                     <div class="flex flex-100 mx-8">
                         <div class="flex-grow mr-2">
-                            <label class="block mb-1 font-bold" for="">Correo electrónico</label>
+                            <label class="text-white block mb-1 font-bold" for="">Correo electrónico</label>
                             <input class="bg-gray-200 w-full rounded-lg py-3 px-3 shadow-inner" type="email"  name="email", id="email" required value=<%=email%>>
                         </div>
                     </div>
                     <div class="flex flex-100 mt-4 mx-8">
                         <div class="flex-grow mr-2">
-                            <label class="block mb-1 font-bold" for="">Password</label>
+                            <label class="text-white block mb-1 font-bold" for="">Password</label>
                             <input class="bg-gray-200 w-full rounded-lg py-3 px-3 shadow-inner" type="password" name="password", id="password" required>
                         </div>
                     </div>
-                    <div class="flex flex-100 mt-4 mx-8 mb-8">
+                    <div class="flex justify-center flex-100 mt-4 mx-8 mb-8">
                         <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" type="submit">
                             Entrar
                         </button>
