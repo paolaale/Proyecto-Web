@@ -9,18 +9,18 @@ const dbConfig = {
 let urlConnection = 'mongodb+srv://leetmate:<password>@web-cluster.9md0b.mongodb.net/<dbname>?retryWrites=true&w=majority'
 urlConnection = urlConnection.replace('<password>', dbConfig.password).replace('<dbname>', dbConfig.dbName);
 
-mongoose.connect(urlConnection, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(urlConnection, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Delaración de esquemas
 const userSchema = mongoose.Schema({
-    name: {type: String, required: true},
-    lastName: {type: String, required: true},
-    age : {type: Number, required: true},
-    grade : {type: String, required: true},
-    city : {type: String, required: true},
-    school : {type: String, required: true},
-    email : {type: String, required: true},
-    password : {type: String, required: true},
+    name: { type: String, required: true },
+    lastName: { type: String, required: true },
+    age: { type: Number, required: true },
+    grade: { type: String, required: true },
+    city: { type: String, required: true },
+    school: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
     problemSet: [String],
     burstSet: [String],
     problemSetDifficulty: {
@@ -33,15 +33,30 @@ const userSchema = mongoose.Schema({
     createdDate: Date
 });
 
+const problemSchema = mongoose.Schema({
+    name: { type: String, required: true },
+    id: { type: String, required: true },
+    description: { type: String, required: true },
+    schoolGrade: { type: Number, required: true },
+    points: Number,
+    difficulty: { type: String, required: true },
+    solution: { type: String, required: true },
+    explanation: String,
+    resources: [String],
+    hints: [String],
+    acceptancy: Number,
+    numOfSubmits: Number,
+    correctSubmits: Number
+});
 
 // Creación de esquemas
-const User = mongoose.model("User", userSchema)
-
+const User = mongoose.model("User", userSchema);
+const Problem = mongoose.model("Problem", problemSchema);
 
 // Commons
 const calculateRanking = async score => {
-    const totalUsers = await User.find({score: {$gt: score}});
-    return (totalUsers.length+1);
+    const totalUsers = await User.find({ score: { $gt: score } });
+    return (totalUsers.length + 1);
 }
 
 
@@ -52,9 +67,9 @@ const getUserInfo = async userId => {
 };
 
 const registerUser = async userInfo => {
-    const { name, lastName, age, grade, city, school, email, password} = userInfo;
-    const [ existUser ] = await User.find({ email }).exec();
-    if (existUser){
+    const { name, lastName, age, grade, city, school, email, password } = userInfo;
+    const [existUser] = await User.find({ email }).exec();
+    if (existUser) {
         return false;
     }
     const rankingPosition = await calculateRanking(0);
@@ -77,11 +92,11 @@ const registerUser = async userInfo => {
 };
 
 const loginUser = async userInfo => {
-    const { email, password} = userInfo;
-    const [ credentials ] = await User.find({ email }).exec();
-    if (credentials){
+    const { email, password } = userInfo;
+    const [credentials] = await User.find({ email }).exec();
+    if (credentials) {
         areCorrectCredentials = await correctPassword(password, credentials.password);
-        if (areCorrectCredentials){
+        if (areCorrectCredentials) {
             return credentials;
         }
         return null;
@@ -96,8 +111,8 @@ const updateUser = async (formInfo, userId) => {
         return formInfo[ele] !== '';
     });
 
-    if (validInputs.includes('password')){
-        formInfo['password']= await encrypt(formInfo['password']);
+    if (validInputs.includes('password')) {
+        formInfo['password'] = await encrypt(formInfo['password']);
     }
 
     const newInputs = {};
@@ -106,7 +121,7 @@ const updateUser = async (formInfo, userId) => {
     });
 
     await User.updateOne(
-        { _id : userId },
+        { _id: userId },
         newInputs
     ).catch(error => {
         console.error(error);
@@ -114,10 +129,37 @@ const updateUser = async (formInfo, userId) => {
     return 0;
 }
 
+const addProblem = (info) => {
+    const newProblem = new Problem({
+        name: info.name,
+        id: info.id,
+        description: info.description,
+        schoolGrade: info.grade,
+        points: info.points,
+        difficulty: info.difficulty,
+        solution: info.solution,
+        explanation: info.explanation,
+        resources: info.resource,
+        hints: info.hint,
+        acceptancy: 0,
+        numOfSubmits: 0,
+        correctSubmits: 0
+    });
+
+    newProblem.save(function (err) {
+        if (!err) {
+            console.log("Exito");
+        }
+        else {
+            console.log(err);
+        }
+    });
+};
 
 module.exports = {
     registerUser,
     loginUser,
     getUserInfo,
-    updateUser
+    updateUser,
+    addProblem
 };

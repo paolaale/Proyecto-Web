@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const ejs = require("ejs");
 const app = express();
-const { registerUser, loginUser, getUserInfo, updateUser } = require('./src/storage/db');
+const { registerUser, loginUser, getUserInfo, updateUser, addProblem } = require('./src/storage/db');
 
 let IS_LOGGED = false;
 let USER_ID = null;
@@ -33,9 +33,19 @@ app.get("/", function (req, res) {
     res.render("landingPage");
 });
 
+// vista principal iniciando sesión
 app.get("/home", redirectLogin, function (req, res) {
-    res.send('<h1>hola</h1> <a href="/logout">Cerrar sesión</a>');
-})
+    res.render("dashboard");
+});
+
+// vista tras escoger grado
+app.get("/problemas", function (req, res, next) {
+    if (IS_LOGGED) {
+        res.render("problemsBoard");
+    } else {
+        next();
+    }
+});
 
 app.get("/signup", redirectHome, function (req, res) {
     const { name, lastName, age, school, email, error } = req.query;
@@ -96,6 +106,14 @@ app.post("/profile", redirectLogin, async function (req, res) {
     res.render("profile/profile", { user });
 });
 
+//admin methods
+app.get("/admin", function (req, res) {
+    res.render("admin/addProblem");
+});
+app.post("/admin", function (req, res) {
+    addProblem(req.body);
+    res.render("admin/addProblem");
+});
 app.listen(3000, function () {
     console.log("Server started on port 3000");
 });

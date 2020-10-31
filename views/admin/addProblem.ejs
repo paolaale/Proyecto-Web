@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Añadir</title>
+    
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+</head>
+<body>
+    <header class="page-header">
+        <!-- <img src="images/logoNikeBlanco.png" class="logo-header"> -->
+    </header>
+    <section>
+        <nav>
+            <form action="/admin" method="POST">
+            <div class="form-group">
+                <label >Nombre:</label>
+                <input type="text" name="name">
+            </div>
+            <div class="form-group">
+                <label>ID:</label>
+                <input type="text" name="id">
+            </div>
+            <div class="form-group">
+                <label>Description:</label>
+                <input type="text" name="description">
+            </div>
+            <div class="form-group">
+                <label>Puntos:</label>
+                <input type="text" name="points">
+            </div>
+            <div class="form-group">
+                <label>Dificultad:</label>
+                <input type="text" name="difficulty">
+            </div>
+            <div class="form-group">
+                <label>Solución:</label>
+                <input type="text" name="solution">
+            </div>
+            <div class="form-group">
+                <label>Explicación:</label>
+                <input type="text" name="explanation">
+            </div>
+            <div class="form-group">
+                <label>Pista 1:</label>
+                <input type="text" name="hint">
+            </div>
+            <div class="form-group">
+                <label>Pista 2:</label>
+                <input type="text" name="hint">
+            </div>
+            <div class="form-group">
+                <label>Pista 3:</label>
+                <input type="text" name="hint">
+            </div>
+            <div class="form-group">
+                <label>Recurso 1:</label>
+                <input type="text" name="resource">
+            </div>
+            <div class="form-group">
+                <label>Recurso 2:</label>
+                <input type="text" name="resource">
+            </div>
+            <div class="form-group">
+                <label for="">Grado:</label>
+                <select  name="grade">
+                  <option>Seleccionar</option>
+                  <option value="1">1</option>
+                  <option value= "2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+            </div>
+            
+            
+            <button type="submit" class="btn add-btn">Agregar</button>
+        </form>
+        </nav>
+    </section> 
+ </body>
+</html>
