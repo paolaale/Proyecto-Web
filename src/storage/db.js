@@ -46,6 +46,11 @@ const calculateRanking = async score => {
 
 
 // Metodos publicos
+const getUserInfo = async userId => {
+    const user = await User.findById(userId);
+    return user;
+};
+
 const registerUser = async userInfo => {
     const { name, lastName, age, grade, city, school, email, password} = userInfo;
     const [ existUser ] = await User.find({ email }).exec();
@@ -76,13 +81,43 @@ const loginUser = async userInfo => {
     const [ credentials ] = await User.find({ email }).exec();
     if (credentials){
         areCorrectCredentials = await correctPassword(password, credentials.password);
-        return areCorrectCredentials;
+        if (areCorrectCredentials){
+            return credentials;
+        }
+        return null;
     }
     return null;
 };
 
+const updateUser = async (formInfo, userId) => {
+    const validInputs = ['name', 'lastName', 'school', 'password'];
+
+    const arrayInputs = validInputs.filter(ele => {
+        return formInfo[ele] !== '';
+    });
+
+    if (validInputs.includes('password')){
+        formInfo['password']= await encrypt(formInfo['password']);
+    }
+
+    const newInputs = {};
+    arrayInputs.forEach(e => {
+        newInputs[e] = formInfo[e];
+    });
+
+    await User.updateOne(
+        { _id : userId },
+        newInputs
+    ).catch(error => {
+        console.error(error);
+    });
+    return 0;
+}
+
 
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    getUserInfo,
+    updateUser
 };

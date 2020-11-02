@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const ejs = require("ejs");
 const app = express();
-const { registerUser, loginUser } = require('./src/storage/db');
+const { registerUser, loginUser, getUserInfo, updateUser } = require('./src/storage/db');
 
 let IS_LOGGED = false;
 let USER_ID = null;
@@ -34,7 +34,7 @@ app.get("/", function(req, res){
 });
 
 app.get("/home", redirectLogin, function(req, res){
-    res.send('<h1>hola</h1>');
+    res.send('<h1>hola</h1> <a href="/logout">Cerrar sesión</a>');
 })
 
 app.get("/signup", redirectHome,  function(req, res){
@@ -78,10 +78,22 @@ app.post("/login", redirectHome, async function(req, res){
     }
 });
 
-app.post('/logout', redirectLogin, function(req, res){
+app.get('/logout', redirectLogin, function(req, res){
     IS_LOGGED = false;
     USER_ID = null;
     res.redirect('/login');
+});
+
+
+app.get("/profile", redirectLogin, async function(req, res){
+    const user = await getUserInfo(USER_ID);
+    res.render("profile/profile", {user});
+});
+
+app.post("/profile", redirectLogin, async function(req, res){
+    await updateUser(req.body, USER_ID);
+    const user = await getUserInfo(USER_ID);
+    res.render("profile/profile", {user});
 });
 
 app.listen(3000, function() {
