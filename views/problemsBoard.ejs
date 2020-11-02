@@ -21,6 +21,18 @@
                 </tr>
                 </thead>
                 <tbody>
+                    <%if (problems != "") { %>
+                        <%problems.forEach(function(problem){%> 
+                            <tr>
+                                <td class="border px-4 py-2"><%=problem.id%></td>
+                                <td class="border px-4 py-2"><%=problem.name%></td>
+                                <td class="border px-4 py-2"><%=problem.topic%></td>
+                                <td class="border px-4 py-2"><%=problem.difficulty%></td>
+                            </tr>
+                        <%});%>
+                    <%} else {%>
+                        <p>¡Lo sentimos! No hay problemas disponibles.</p>
+                    <%}%>
                 <tr>
                     <td class="border px-4 py-2">1</td>
                     <td class="border px-4 py-2">Intro to CSS</td>

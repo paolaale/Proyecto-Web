@@ -36,6 +36,7 @@ const userSchema = mongoose.Schema({
 const problemSchema = mongoose.Schema({
     name: { type: String, required: true },
     id: { type: String, required: true },
+    topic: { type: String, required: true },
     description: { type: String, required: true },
     schoolGrade: { type: Number, required: true },
     points: Number,
@@ -133,6 +134,7 @@ const addProblem = (info) => {
     const newProblem = new Problem({
         name: info.name,
         id: info.id,
+        topic: info.topic,
         description: info.description,
         schoolGrade: info.grade,
         points: info.points,
@@ -156,10 +158,20 @@ const addProblem = (info) => {
     });
 };
 
+const loadProblems = async grade => {
+    const sGrade = parseInt(grade);
+    const foundProblems = await Problem.find({ "schoolGrade": sGrade }).exec();
+    if (foundProblems) {
+        return foundProblems;
+    }
+    return null;
+};
+
 module.exports = {
     registerUser,
     loginUser,
     getUserInfo,
     updateUser,
-    addProblem
+    addProblem,
+    loadProblems
 };

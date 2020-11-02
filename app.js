@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const ejs = require("ejs");
 const app = express();
-const { registerUser, loginUser, getUserInfo, updateUser, addProblem } = require('./src/storage/db');
+const { registerUser, loginUser, getUserInfo, updateUser, addProblem, loadProblems } = require('./src/storage/db');
 
 let IS_LOGGED = false;
 let USER_ID = null;
@@ -39,9 +39,13 @@ app.get("/home", redirectLogin, function (req, res) {
 });
 
 // vista tras escoger grado
-app.get("/problemas", function (req, res, next) {
+app.get("/problemas", async function (req, res, next) {
+    console.log(req.query.grado);
+    const problemas = await loadProblems(req.query.grado);
     if (IS_LOGGED) {
-        res.render("problemsBoard");
+
+        console.log(problemas);
+        res.render("problemsBoard", { problems: problemas });
     } else {
         next();
     }
