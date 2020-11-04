@@ -1,39 +1,44 @@
 <%- include("header") -%>
 
+<%- include("../components/navbar") -%>
+
 <div class="flex justify-center">
     <div class="mr-16">
         <div class="pt-2 relative mx-auto text-gray-600">
             <div flex>
-                <div><h1>Problemas # de primaria</h1></div>
+                <div>
+                    <h1>Problemas # de primaria</h1>
+                </div>
                 <form action="/search-problem" method="POST">
-                    <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-                type="search" name="search" placeholder="Search">
+                    <input
+                        class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+                        type="search" name="search" placeholder="Search">
                 </form>
-                
+
             </div>
         </div>
         <div>
             <table class="table-auto">
                 <thead>
-                <tr>
-                    <th class="px-4 py-2">ID</th>
-                    <th class="px-4 py-2">Título</th>
-                    <th class="px-4 py-2">Tema</th>
-                    <th class="px-4 py-2">Dificultad</th>
-                </tr>
+                    <tr>
+                        <th class="px-4 py-2">ID</th>
+                        <th class="px-4 py-2">Título</th>
+                        <th class="px-4 py-2">Tema</th>
+                        <th class="px-4 py-2">Dificultad</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <%if (problems != "") { %>
-                        <%problems.forEach(function(problem){%> 
-                            <tr>
-                                <td class="border px-4 py-2"><%=problem.id%></td>
-                                <td class="border px-4 py-2"><a href="/problema?id=<%=problem._id%>"><%=problem.name%></a></td>
-                                <td class="border px-4 py-2"><%=problem.topic%></td>
-                                <td class="border px-4 py-2"><%=problem.difficulty%></td>
-                            </tr>
-                        <%});%>
+                    <%problems.forEach(function(problem){%>
+                    <tr>
+                        <td class="border px-4 py-2"><%=problem.id%></td>
+                        <td class="border px-4 py-2"><a href="/problema?id=<%=problem._id%>"><%=problem.name%></a></td>
+                        <td class="border px-4 py-2"><%=problem.topic%></td>
+                        <td class="border px-4 py-2"><%=problem.difficulty%></td>
+                    </tr>
+                    <%});%>
                     <%} else {%>
-                        <p>¡Lo sentimos! No hay problemas disponibles.</p>
+                    <p>¡Lo sentimos! No hay problemas disponibles.</p>
                     <%}%>
                 <tr>
                     <td class="border px-4 py-2">1</td>
