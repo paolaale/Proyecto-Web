@@ -4,10 +4,11 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const ejs = require("ejs");
 const app = express();
-const { registerUser, loginUser, getUserInfo, updateUser, addProblem, loadProblems } = require('./src/storage/db');
+const { registerUser, loginUser, getUserInfo, updateUser, addProblem, loadProblems, getProblem, searchProblem } = require('./src/storage/db');
 
 let IS_LOGGED = false;
 let USER_ID = null;
+let currentGrade = '';
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,16 +40,26 @@ app.get("/home", redirectLogin, function (req, res) {
 });
 
 // vista tras escoger grado
-app.get("/problemas", async function (req, res, next) {
-    console.log(req.query.grado);
-    const problemas = await loadProblems(req.query.grado);
+app.get("/lista-problemas", async function (req, res, next) {
+    currentGrade = req.query.grado;
+    const problemas = await loadProblems(currentGrade);
     if (IS_LOGGED) {
-
-        console.log(problemas);
         res.render("problemsBoard", { problems: problemas });
     } else {
         next();
     }
+});
+// vista de un problema
+
+app.get("/problema", async function (req, res, next) {
+    console.log(req.query.id);
+    const problema = await getProblem(req.query.id);
+    if (IS_LOGGED) {
+        res.render("problem", { problem: problema });
+    } else {
+        next();
+    }
+
 });
 
 app.get("/signup", redirectHome, function (req, res) {
@@ -92,7 +103,20 @@ app.post("/login", redirectHome, async function (req, res) {
     }
 });
 
-app.get('/logout', redirectLogin, function (req, res) {
+//Buscador de problemas en el board de problemas
+app.post("/search-problem", async function (req, res, next) {
+    console.log("paapaassss");
+    const problemas = await searchProblem(req.body.search);
+    if (IS_LOGGED) {
+
+        console.log(problemas);
+        res.render("problemsBoard", { problems: problemas });
+    } else {
+        next();
+    }
+});
+
+app.post('/logout', redirectLogin, function (req, res) {
     IS_LOGGED = false;
     USER_ID = null;
     res.redirect('/login');
@@ -114,10 +138,12 @@ app.post("/profile", redirectLogin, async function (req, res) {
 app.get("/admin", function (req, res) {
     res.render("admin/addProblem");
 });
+
 app.post("/admin", function (req, res) {
     addProblem(req.body);
     res.render("admin/addProblem");
 });
+
 app.listen(3000, function () {
     console.log("Server started on port 3000");
 });

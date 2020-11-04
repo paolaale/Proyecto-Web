@@ -5,8 +5,10 @@
         <div class="pt-2 relative mx-auto text-gray-600">
             <div flex>
                 <div><h1>Problemas # de primaria</h1></div>
-                <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+                <form action="/search-problem" method="POST">
+                    <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
                 type="search" name="search" placeholder="Search">
+                </form>
                 
             </div>
         </div>
@@ -25,7 +27,7 @@
                         <%problems.forEach(function(problem){%> 
                             <tr>
                                 <td class="border px-4 py-2"><%=problem.id%></td>
-                                <td class="border px-4 py-2"><%=problem.name%></td>
+                                <td class="border px-4 py-2"><a href="/problema?id=<%=problem._id%>"><%=problem.name%></a></td>
                                 <td class="border px-4 py-2"><%=problem.topic%></td>
                                 <td class="border px-4 py-2"><%=problem.difficulty%></td>
                             </tr>

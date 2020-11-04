@@ -167,11 +167,28 @@ const loadProblems = async grade => {
     return null;
 };
 
+const getProblem = async problemId => {
+    const foundProblem = await Problem.findById(problemId).exec();
+    if (foundProblem) {
+        return foundProblem;
+    }
+    return null;
+}
+
+const searchProblem = async info => {
+    const foundProblems = await Problem.find({$or:[{name: {$regex: '.*' + info + '.*', $options:'i'}}, {id: {$regex: '.*' + info + '.*', $options:'i'}}]}).exec();
+    if (foundProblems) {
+        return foundProblems;
+    }
+    return null;
+}
 module.exports = {
     registerUser,
     loginUser,
     getUserInfo,
     updateUser,
     addProblem,
-    loadProblems
+    loadProblems,
+    getProblem,
+    searchProblem
 };
