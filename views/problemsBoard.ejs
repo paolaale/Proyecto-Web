@@ -1,69 +1,82 @@
 <%- include("header") -%>
 
-<div class="flex justify-center">
-    <div class="mr-16">
-        <div class="pt-2 relative mx-auto text-gray-600">
-            <div flex>
-                <div><h1>Problemas # de primaria</h1></div>
-                <form action="/search-problem" method="POST">
-                    <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-                type="search" name="search" placeholder="Search">
-                </form>
-                
+<%- include("../components/navbar") -%>
+
+<div class="mt-4 pt-2 px-12 relative mx-auto text-gray-600">
+    <div class="pb-8">
+        <h1 class="text-2xl leading-6 font-medium text-gray-900">Todos</h1>
+    </div>
+    <form action="/search-problem" method="POST">
+        <div class="relative text-gray-600 focus-within:text-gray-400">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </span>
+            <input type="search" name="search"
+                class="py-2 pl-10 pr-16 border-2 border-gray-300 bg-white h-10 rounded-lg text-sm focus:outline-none"
+                placeholder="Buscar por nombre o id." autocomplete="off">
+        </div>
+    </form>
+</div>
+<main class="max-w-7xl mx-auto pb-10 lg:py-4 lg:px-12">
+    <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
+        <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
+            <div>
+                <table class="table-auto">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2">ID</th>
+                            <th class="px-4 py-2">Título</th>
+                            <th class="px-4 py-2">Tema</th>
+                            <th class="px-4 py-2">Dificultad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%if (problems != "") { %>
+                        <%problems.forEach(function(problem){%>
+                        <tr class="hover:bg-gray-200">
+                            <td class="border px-4 py-2 cursor-pointer"><%=problem.id%></td>
+                            <td class=" border px-4 py-2 cursor-pointer">
+                                <a href="/problema?id=<%=problem._id%>">
+                                    <%=problem.name%>
+                                </a>
+                            </td>
+                            <td class="border px-4 py-2 cursor-pointer"><%=problem.topic%></td>
+                            <td class="border px-4 py-2 cursor-pointer"><%=problem.difficulty%></td>
+                        </tr>
+                        <%});%>
+                        <%} else {%>
+                        <p>¡Lo sentimos! No hay problemas disponibles.</p>
+                        <%}%>
+                        </tbody>
+                </table>
             </div>
         </div>
-        <div>
-            <table class="table-auto">
-                <thead>
-                <tr>
-                    <th class="px-4 py-2">ID</th>
-                    <th class="px-4 py-2">Título</th>
-                    <th class="px-4 py-2">Tema</th>
-                    <th class="px-4 py-2">Dificultad</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <%if (problems != "") { %>
-                        <%problems.forEach(function(problem){%> 
-                            <tr>
-                                <td class="border px-4 py-2"><%=problem.id%></td>
-                                <td class="border px-4 py-2"><a href="/problema?id=<%=problem._id%>"><%=problem.name%></a></td>
-                                <td class="border px-4 py-2"><%=problem.topic%></td>
-                                <td class="border px-4 py-2"><%=problem.difficulty%></td>
-                            </tr>
-                        <%});%>
-                    <%} else {%>
-                        <p>¡Lo sentimos! No hay problemas disponibles.</p>
-                    <%}%>
-                <tr>
-                    <td class="border px-4 py-2">1</td>
-                    <td class="border px-4 py-2">Intro to CSS</td>
-                    <td class="border px-4 py-2">Fracciones Invertidas</td>
-                    <td class="border px-4 py-2">858</td>
-                </tr>
-                <tr class="bg-gray-100">
-                    <td class="border px-4 py-2">2</td>
-                    <td class="border px-4 py-2">A Long and Winding Tour of the History of UI Frameworks and Tools and the Impact on Design</td>
-                    <td class="border px-4 py-2">Adam</td>
-                    <td class="border px-4 py-2">112</td>
-                </tr>
-                <tr>
-                    <td class="border px-4 py-2">3</td>
-                    <td class="border px-4 py-2">Intro to JavaScript</td>
-                    <td class="border px-4 py-2">Chris</td>
-                    <td class="border px-4 py-2">1,280</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <aside class="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3">
+            <div class="mb-4">
+                <h2 class="text-lg leading-6 font-normal text-gray-900 mb-2">Temas</h2>
+                <span class="inline-flex rounded-md shadow-sm">
+                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                      Tema 1
+                    </button>
+                </span>
+                <span class="inline-flex rounded-md shadow-sm">
+                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                      Tema 2
+                    </button>
+                </span>
+                <span class="inline-flex rounded-md shadow-sm">
+                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                      Tema 3
+                    </button>
+                </span>
+            </div>
+            <div class="mb-4">
+                <h2 class="text-lg leading-6 font-normal text-gray-900 mb-2">Referencias</h2>
+            </div>
+        </aside>
     </div>
-    <div>
-        <img src="/img/math.jpg" class="w-48">
-        <div>
-            <h2>Temas</h2>
-        </div>
-        <div>
-            <h2>Referencias</h2>
-        </div>
-    </div>
-</div>
+</main>
