@@ -28,8 +28,7 @@ const userSchema = mongoose.Schema({
         medium: [String],
         hard: [String]
     },
-    score: mongoose.Decimal128,
-    rankingPosition: Number,
+    score: Number,
     createdDate: Date
 });
 
@@ -55,13 +54,15 @@ const User = mongoose.model("User", userSchema);
 const Problem = mongoose.model("Problem", problemSchema);
 
 // Commons
-const calculateRanking = async score => {
-    const totalUsers = await User.find({ score: { $gt: score } });
-    return (totalUsers.length + 1);
-}
 
 
 // Metodos publicos
+
+const getUsers = async() => {
+    const users = await User.find({}).sort({score: -1});
+    return users;
+};
+
 const getUserInfo = async userId => {
     const user = await User.findById(userId);
     return user;
@@ -73,7 +74,6 @@ const registerUser = async userInfo => {
     if (existUser) {
         return false;
     }
-    const rankingPosition = await calculateRanking(0);
     const hashPassword = await encrypt(password);
     const newUser = new User({
         name: name.toLowerCase(),
@@ -84,8 +84,7 @@ const registerUser = async userInfo => {
         school,
         email,
         password: hashPassword,
-        score: 0,
-        rankingPosition,
+        score: 0.0,
         createdDate: new Date()
     });
     const createdUser = await newUser.save();
@@ -190,5 +189,6 @@ module.exports = {
     addProblem,
     loadProblems,
     getProblem,
-    searchProblem
+    searchProblem,
+    getUsers
 };
