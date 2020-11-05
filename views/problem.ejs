@@ -57,19 +57,35 @@
                 </div>
     
                 <div id="contenido-redaccion" class="contenido bg-white px-2 py-4">
-                    <h1><%=problem.id%></h1>
-                    <h1><%=problem.name%></h1>
-                    <h1><%=problem.topic%></h1>
-                    <h1><%=problem.description%></h1>
-                    <h1><%=problem.points%></h1>
+                    <h1><strong><%=problem.id%>. <%=problem.name%></strong></h1>
+                    <br>
+                    <p><%=problem.description%></p>
+                    
                 </div>
 
                 <div id="contenido-pistas" class="hidden contenido bg-white px-2 py-4">
-                    <h1> mis pistas </h1>    
+                    <h1><strong>Pistas</strong></h1>
+                    <br>
+                    
+                    <%if (problem.hints.length > 0) { %>
+                        <%for (var i = 0; i < problem.hints.length; i++){%>
+                            <%if (0 != problem.hints[i].localeCompare("")) { %>
+                                <h1><strong>Pista <%=i + 1%></strong></h1>
+                                <p><%=problem.hints[i]%></p>
+                            <%}%>
+                            <br>                   
+                        <%}%>
+                    <%} else {%>
+                        <h1><strong>¡Lo sentimos!</strong></h1>
+                        <p>Este problema no cuenta con pistas.</p>
+                    <%}%>
                 </div>
 
                 <div id="contenido-solucion" class="hidden contenido bg-white px-2 py-4">
-                    <h1> mi solucion</h1>
+                    <h1><strong>Solución del problema:</strong></h1><br>
+                    <h1><%=problem.explanation%></h1><br>
+                    <h1>Respuesta correcta: <%=problem.solution%></h1>
+                    
                 </div>
 
             </aside>
@@ -79,7 +95,7 @@
             
             <h1 class="ml-5 mt-3 mb-5 font-semibold">RESPUESTA</h1>
 
-            <div id="wrong_banner" class="w-2/4 mx-auto relative text-center rounded-lg py-2 mb-5 banner border-solid border-4 border-gray-600">
+            <div id="wrong_banner" class="hidden w-2/4 mx-auto relative text-center rounded-lg py-2 mb-5 banner border-solid border-4 border-gray-600">
                 <h1 class="text-center text-2xl">Upss, ¡Intenta de nuevo!</h1>
                 <i class="fas fa-frown-open text-3xl"></i>
                 <div class="flex flex-col mt-2" >
@@ -93,7 +109,7 @@
                 </div>  
             </div>
 
-            <div id="correct_banner" class="w-11/12 mx-auto relative text-center rounded-lg py-2 mb-5 banner border-solid border-4 border-gray-600">
+            <div id="correct_banner" class="hidden w-11/12 mx-auto relative text-center rounded-lg py-2 mb-5 banner border-solid border-4 border-gray-600">
                 <h1 class="text-center text-2xl">¡Felicidades!</h1>
                 <i class="fas fa-laugh-beam text-3xl"></i>  
                 <div class="flex flex-col mt-2" >
@@ -109,16 +125,17 @@
                     
                 </div>
             </div>
-
+            <form role="form">
             <div class="flex justify-center mb-5">
-                <input placeholder="Tu respuesta" type="number" name="respuesta" id="respuesta" class="bg-gray-200 w-10/12 h-16 rounded-lg mx-auto py-3 px-3 shadow-inner outline"/>
+                <input placeholder="Tu respuesta" type="text" name="answer" id="answer" class="bg-gray-200 w-10/12 h-16 rounded-lg mx-auto py-3 px-3 shadow-inner outline"/>
             </div>
 
             <div class="flex justify-center mb-3">
-                <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded outline" type="submit">
+                <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded outline" type="submit" id="submit">
                     Calificar
                 </button>
             </div>
+            </form>
             
             
         </section>
@@ -129,7 +146,7 @@
 </body>
 
 <script>
-
+    // windows functionality (pistas-redacción-solución)
     $('.pestana').on('click', function(){
         $('.pestana').removeClass('active');
         $(this).addClass('active');
@@ -146,6 +163,35 @@
         $('#respuesta').val('');
         $('.banner').addClass('hidden');
     })
+
+    //verify submission 
+    var answer = "<%- problem.solution %>";
+
+    $('#submit').on('click', function(event) {
+        event.preventDefault();
+        $('#correct_banner').addClass('hidden');
+        $('#wrong_banner').addClass('hidden');
+        var userAns = $('#answer').val().trim();
+
+        if (answer === userAns) {
+            var info = {
+                problemId: "<%- problem._id %>"
+            };
+
+            $.post("/submit-answer", info, function(data) {
+                if (data) {
+                   
+                    $('#correct_banner').removeClass('hidden');
+                    
+                }
+            });
+        }
+        else {
+            
+            $('#wrong_banner').removeClass('hidden');
+            
+        }
+    });
     
 </script>
 </html>

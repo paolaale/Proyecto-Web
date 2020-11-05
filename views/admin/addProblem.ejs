@@ -34,11 +34,16 @@
             </div>
             <div class="form-group">
                 <label>Puntos:</label>
-                <input type="text" name="points">
+                <input type="number" name="points">
             </div>
             <div class="form-group">
                 <label>Dificultad:</label>
-                <input type="text" name="difficulty">
+                <select  name="difficulty">
+                    <option>Seleccionar</option>
+                    <option value="Fácil">Fácil</option>
+                    <option value= "Media">Media</option>
+                    <option value= "Difícil">Difícil</option>
+                  </select>
             </div>
             <div class="form-group">
                 <label>Solución:</label>
@@ -47,6 +52,15 @@
             <div class="form-group">
                 <label>Explicación:</label>
                 <input type="text" name="explanation">
+            </div>
+            <div class="form-group">
+                <label>Tipo de Problema:</label>
+                <select  name="type">
+                    <option>Seleccionar</option>
+                    <option value="Múltiple">Múltiple</option>
+                    <option value= "Abierta">Abierta</option>
+                  </select>
+                
             </div>
             <div class="form-group">
                 <label>Pista 1:</label>

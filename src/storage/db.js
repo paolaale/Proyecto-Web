@@ -24,11 +24,11 @@ const userSchema = mongoose.Schema({
     problemSet: [String],
     burstSet: [String],
     problemSetDifficulty: {
-        easy: [String],
-        medium: [String],
-        hard: [String]
+        easy: Number,
+        medium: Number,
+        hard: Number
     },
-    score: mongoose.Decimal128,
+    score: Number,
     rankingPosition: Number,
     createdDate: Date
 });
@@ -44,6 +44,7 @@ const problemSchema = mongoose.Schema({
     solution: { type: String, required: true },
     explanation: String,
     resources: [String],
+    type: [String],
     hints: [String],
     acceptancy: Number,
     numOfSubmits: Number,
@@ -58,7 +59,7 @@ const Problem = mongoose.model("Problem", problemSchema);
 const calculateRanking = async score => {
     const totalUsers = await User.find({ score: { $gt: score } });
     return (totalUsers.length + 1);
-}
+};
 
 
 // Metodos publicos
@@ -128,7 +129,7 @@ const updateUser = async (formInfo, userId) => {
         console.error(error);
     });
     return 0;
-}
+};
 
 const addProblem = (info) => {
     const newProblem = new Problem({
@@ -141,6 +142,7 @@ const addProblem = (info) => {
         difficulty: info.difficulty,
         solution: info.solution,
         explanation: info.explanation,
+        type: info.type,
         resources: info.resource,
         hints: info.hint,
         acceptancy: 0,
@@ -173,15 +175,46 @@ const getProblem = async problemId => {
         return foundProblem;
     }
     return null;
-}
+};
 
 const searchProblem = async info => {
+    console.log();
     const foundProblems = await Problem.find({$or:[{name: {$regex: '.*' + info + '.*', $options:'i'}}, {id: {$regex: '.*' + info + '.*', $options:'i'}}]}).exec();
     if (foundProblems) {
         return foundProblems;
     }
     return null;
-}
+};
+
+const addProblemToUser = async (problemId, userId) => {
+    console.log("Prueba: " +  problemId);
+    const user = await getUserInfo(userId);
+    let setOfProblems = user.problemSet;
+    
+    if (!setOfProblems.includes(problemId)) {
+        
+        user.problemSet.push(problemId);
+        const problem = await Problem.findById(problemId);
+        user.score = user.score + problem.points;
+        user.rankingPosition = await calculateRanking(user.score);
+
+        if (problem.difficulty === "Fácil") {
+            user.problemSetDifficulty.easy = user.problemSetDifficulty.easy + 1;
+        }
+        else if (problem.difficulty === "Media") {
+            user.problemSetDifficulty.medium = user.problemSetDifficulty.medium + 1;
+        }
+        else {
+            user.problemSetDifficulty.hard = user.problemSetDifficulty.hard + 1;
+        }
+        user.save();
+
+        return false;
+    }
+
+    return true;
+};
+
 module.exports = {
     registerUser,
     loginUser,
@@ -190,5 +223,6 @@ module.exports = {
     addProblem,
     loadProblems,
     getProblem,
-    searchProblem
+    searchProblem,
+    addProblemToUser
 };

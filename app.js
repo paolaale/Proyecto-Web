@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const ejs = require("ejs");
 const app = express();
-const { registerUser, loginUser, getUserInfo, updateUser, addProblem, loadProblems, getProblem, searchProblem } = require('./src/storage/db');
+const { registerUser, loginUser, getUserInfo, updateUser, addProblem, loadProblems, getProblem, searchProblem, addProblemToUser } = require('./src/storage/db');
 
 let IS_LOGGED = false;
 let USER_ID = null;
@@ -133,6 +133,16 @@ app.post("/profile", redirectLogin, async function (req, res) {
     const user = await getUserInfo(USER_ID);
     res.render("profile/profile", { user });
 });
+
+//provisionalmente renderear el dashboard
+app.post("/submit-answer", function (req, res, next) {
+    console.log(req.body);
+    
+    addProblemToUser(req.body.problemId, USER_ID);
+    
+    res.json(true);
+});
+
 
 //admin methods
 app.get("/admin", function (req, res) {
