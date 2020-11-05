@@ -4,7 +4,8 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const ejs = require("ejs");
 const app = express();
-const { registerUser, loginUser, getUserInfo, updateUser, addProblem, loadProblems, getProblem, searchProblem, addProblemToUser } = require('./src/storage/db');
+const { registerUser, loginUser, getUserInfo, updateUser, addProblem, loadProblems, getProblem, searchProblem, addProblemToUser, getUsers } = require('./src/storage/db');
+
 
 let IS_LOGGED = false;
 let USER_ID = null;
@@ -143,6 +144,14 @@ app.post("/submit-answer", function (req, res, next) {
     res.json(true);
 });
 
+app.get('/ranking', redirectLogin, async function(req, res) {
+    const allUsers = await getUsers();
+    const top = [];
+    for(let i=0; i<3; i++){
+        top.push(allUsers[i]);
+    }
+    res.render('ranking/ranking', {allUsers, tops: top, userId: USER_ID});
+});
 
 //admin methods
 app.get("/admin", function (req, res) {

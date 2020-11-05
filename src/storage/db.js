@@ -63,6 +63,12 @@ const calculateRanking = async score => {
 
 
 // Metodos publicos
+
+const getUsers = async() => {
+    const users = await User.find({}).sort({score: -1});
+    return users;
+};
+
 const getUserInfo = async userId => {
     const user = await User.findById(userId);
     return user;
@@ -74,7 +80,6 @@ const registerUser = async userInfo => {
     if (existUser) {
         return false;
     }
-    const rankingPosition = await calculateRanking(0);
     const hashPassword = await encrypt(password);
     const newUser = new User({
         name: name.toLowerCase(),
@@ -85,8 +90,7 @@ const registerUser = async userInfo => {
         school,
         email,
         password: hashPassword,
-        score: 0,
-        rankingPosition,
+        score: 0.0,
         createdDate: new Date()
     });
     const createdUser = await newUser.save();
@@ -224,5 +228,6 @@ module.exports = {
     loadProblems,
     getProblem,
     searchProblem,
-    addProblemToUser
+    addProblemToUser,
+    getUsers
 };
