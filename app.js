@@ -50,17 +50,17 @@ app.get("/lista-problemas", async function (req, res, next) {
         next();
     }
 });
+
 // vista de un problema
-
-app.get("/problema", async function (req, res, next) {
-    console.log(req.query.id);
+app.get("/problema", redirectLogin, async function (req, res) {
     const problema = await getProblem(req.query.id);
-    if (IS_LOGGED) {
-        res.render("problem", { problem: problema });
-    } else {
-        next();
-    }
+    res.render("problem/problem", { problem: problema });
+});
 
+app.get('/rafaga', redirectLogin, async function(req, res){
+    const a = '5f9cb2d78ef5402e8a8ea6f4';
+    const problema = await getProblem(a);
+    res.render('problem/rafaga', { rafagas: [problema, problema] });
 });
 
 app.get("/signup", redirectHome, function (req, res) {

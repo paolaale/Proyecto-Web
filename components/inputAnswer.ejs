@@ -1,0 +1,106 @@
+<h1 class="ml-5 mt-3 mb-5 font-semibold">RESPUESTA</h1>
+
+<div id="wrong_banner" class="hidden w-2/4 mx-auto relative text-center rounded-lg py-2 mb-5 banner border-solid border-4 border-gray-600">
+    <h1 class="text-center text-2xl">Upss, ¡Intenta de nuevo!</h1>
+    <i class="fas fa-frown-open text-3xl"></i>
+    <div class="flex flex-col mt-2" >
+        <button class="w-2/4 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 mx-auto mb-2 border-b-4 border-red-700 hover:border-red-500 rounded outline cerrar">
+            Cerrar
+        </button>
+
+        <button id="btn_try" class="w-2/4 bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 mx-auto mb-2 border-b-4 border-green-700 hover:border-green-500 rounded outline">
+            Intentar de nuevo
+        </button>
+    </div>  
+</div>
+
+<div id="correct_banner" class="hidden w-11/12 mx-auto relative text-center rounded-lg py-2 mb-5 banner border-solid border-4 border-gray-600">
+    <h1 class="text-center text-2xl">¡Felicidades!</h1>
+    <i class="fas fa-laugh-beam text-3xl"></i>  
+    <div class="flex flex-col mt-2" >
+        <button class="w-2/4 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 mx-auto mb-2 border-b-4 border-red-700 hover:border-red-500 rounded outline cerrar">
+            Cerrar
+        </button>
+
+        <a href="/home">
+            <button class="w-2/4 bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 mx-auto mb-2 border-b-4 border-green-700 hover:border-green-500 rounded outline">
+                Ir a la lista de problemas
+            </button>
+        </a>
+        
+    </div>
+</div>
+<form role="form">
+    <div class="flex justify-center mb-5" id="single-answer">
+        <input placeholder="Tu respuesta" type="text" name="answer" id="single-answer-input" class="bg-gray-200 w-10/12 h-16 rounded-lg mx-auto py-3 px-3 shadow-inner outline"/>
+    </div>
+
+    <div class="flex justify-around flex-row flex-wrap my-5 " id="multiple-answer">
+        <input type="text" value="" class="hidden" id="multiple-answer-input">
+        <div class="flex items-center justify-center w-5/12 my-2 h-16 rounded-lg hover:shadow-outline shadow-answer option-card" data-answer="hola1"> Respuesta 1 </div>
+        <div class="flex items-center justify-center w-5/12 my-2 h-16 rounded-lg hover:shadow-outline shadow-answer option-card" data-answer="hola2"> Respuesta 2 </div>
+        <div class="flex items-center justify-center w-5/12 my-2 h-16 rounded-lg hover:shadow-outline shadow-answer option-card" data-answer="hola3"> Respuesta 3 </div>
+    </div>
+
+    <div class="flex justify-center mb-3">
+        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded outline" type="submit" id="submit">
+            Calificar
+        </button>
+    </div>
+</form>
+
+<script>
+    $('.cerrar').on('click', function(){
+        $('.banner').addClass('hidden');
+    });
+
+    $('#btn_try').on('click', function(){
+        $('#respuesta').val('');
+        $('.banner').addClass('hidden');
+    })
+
+    $('.option-card').on('click', function(){
+        $('.option-card').removeClass('selected-answer');
+        $(this).addClass('selected-answer');
+        $('#multiple-answer-input').val($(this).attr('data-answer'));
+    });
+
+    //verify submission 
+    const answer = "<%- problem.solution %>" ;
+    const problemType =  "<%- problem.type %>";
+
+    $('#submit').on('click', function(event) {
+        event.preventDefault();
+        $('#correct_banner').addClass('hidden');
+        $('#wrong_banner').addClass('hidden');
+        const inputAnswer = problemType === 'Abierta' ? '#single-answer-input' : '#multiple-answer-input';
+        var userAns = $(inputAnswer).val().trim();
+
+        if (answer === userAns) {
+            var info = {
+                problemId: "<%- problem._id %>"
+            };
+
+            $.post("/submit-answer", info, function(data) {
+                if (data) {
+                    showBanner('#correct_banner');
+                }
+            });
+        }
+        else {
+            showBanner('#wrong_banner');
+        }
+    });
+
+    const showBanner = bannerName =>{
+        // TODO: Verificar si el tipo de problema es rafaga o problema normal
+        // const isNormalProblem = "<%- problem.type %>";
+        // if (isNormalProblem){
+        //     $(bannerName).removeClass('hidden');
+        // }
+
+        
+        $(bannerName).removeClass('hidden'); // Este se debería de quitar una vez leyendo el tipo de problema
+    };
+
+</script>

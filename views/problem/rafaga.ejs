@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rafaga</title>
+    <script src="https://kit.fontawesome.com/52e276fb65.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .shadow-answer{
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .selected-answer{
+            border: 2px solid #558888;
+            background-color: #b2f5ea;
+        }
+    </style>
+</head>
+<body class="bg-blue-100">
+
+    <span id="countdown" class="text-xl">10</span>
+
+    <% rafagas.forEach(rafaga => {  %>
+    <main class="w-full md:w-9/12 mx-auto p-3 mt-5 bg-white rounded-lg shadow-lg">
+            <h1 class="italic text-center text-xl"> <%= rafaga.description %> </h1>
+            <div class="shadow-answer rounded-lg p-3 my-4 w-9/12 mx-auto">
+                <%- include("../../components/inputAnswer", {problem: rafaga}) -%>
+            </div>
+    </main>
+    <% });  %>
+
+</body>
+
+<script>
+    var seconds = document.getElementById("countdown").textContent;
+    var countdown = setInterval(function() {
+        seconds--;
+        document.getElementById("countdown").textContent = seconds;
+        if (seconds <= 0) clearInterval(countdown);
+    }, 1000);
+</script>
+
+
+</html>

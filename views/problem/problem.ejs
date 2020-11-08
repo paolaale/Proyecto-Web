@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Problem</title>
     <script src="https://kit.fontawesome.com/52e276fb65.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" href="style.css">
-    
+    <!-- <link rel="stylesheet" href="../../public/inputAnswer.css"> -->
     <style>
         .pestana{
             width: 32.5%;
@@ -36,7 +36,13 @@
             border-top-left-radius: 0px;
             border: 2px solid bisque;
         }
-
+        .shadow-answer{
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .selected-answer{
+            border: 2px solid #558888;
+            background-color: #b2f5ea;
+        }
     </style>
 </head>
 <body class="bg-blue-100">
@@ -91,56 +97,10 @@
             </aside>
         </section>
     
+        <!-- ANSWER SECCTION -->
         <section id="problem" class="w-3/5 mr-4 py-3 bg-white rounded-lg shadow-lg">
-            
-            <h1 class="ml-5 mt-3 mb-5 font-semibold">RESPUESTA</h1>
-
-            <div id="wrong_banner" class="hidden w-2/4 mx-auto relative text-center rounded-lg py-2 mb-5 banner border-solid border-4 border-gray-600">
-                <h1 class="text-center text-2xl">Upss, ¡Intenta de nuevo!</h1>
-                <i class="fas fa-frown-open text-3xl"></i>
-                <div class="flex flex-col mt-2" >
-                    <button class="w-2/4 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 mx-auto mb-2 border-b-4 border-red-700 hover:border-red-500 rounded outline cerrar">
-                        Cerrar
-                    </button>
-
-                    <button id="btn_try" class="w-2/4 bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 mx-auto mb-2 border-b-4 border-green-700 hover:border-green-500 rounded outline">
-                        Intentar de nuevo
-                    </button>
-                </div>  
-            </div>
-
-            <div id="correct_banner" class="hidden w-11/12 mx-auto relative text-center rounded-lg py-2 mb-5 banner border-solid border-4 border-gray-600">
-                <h1 class="text-center text-2xl">¡Felicidades!</h1>
-                <i class="fas fa-laugh-beam text-3xl"></i>  
-                <div class="flex flex-col mt-2" >
-                    <button class="w-2/4 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 mx-auto mb-2 border-b-4 border-red-700 hover:border-red-500 rounded outline cerrar">
-                        Cerrar
-                    </button>
-
-                    <a href="">
-                        <button class="w-2/4 bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 mx-auto mb-2 border-b-4 border-green-700 hover:border-green-500 rounded outline">
-                            Ir a la lista de problemas
-                        </button>
-                    </a>
-                    
-                </div>
-            </div>
-            <form role="form">
-            <div class="flex justify-center mb-5">
-                <input placeholder="Tu respuesta" type="text" name="answer" id="answer" class="bg-gray-200 w-10/12 h-16 rounded-lg mx-auto py-3 px-3 shadow-inner outline"/>
-            </div>
-
-            <div class="flex justify-center mb-3">
-                <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded outline" type="submit" id="submit">
-                    Calificar
-                </button>
-            </div>
-            </form>
-            
-            
+            <%- include("../../components/inputAnswer") -%>
         </section>
-
-        
 
     </div>
 </body>
@@ -155,43 +115,5 @@
         $(contentId).removeClass('hidden');
     });
 
-    $('.cerrar').on('click', function(){
-        $('.banner').addClass('hidden');
-    });
-
-    $('#btn_try').on('click', function(){
-        $('#respuesta').val('');
-        $('.banner').addClass('hidden');
-    })
-
-    //verify submission 
-    var answer = "<%- problem.solution %>";
-
-    $('#submit').on('click', function(event) {
-        event.preventDefault();
-        $('#correct_banner').addClass('hidden');
-        $('#wrong_banner').addClass('hidden');
-        var userAns = $('#answer').val().trim();
-
-        if (answer === userAns) {
-            var info = {
-                problemId: "<%- problem._id %>"
-            };
-
-            $.post("/submit-answer", info, function(data) {
-                if (data) {
-                   
-                    $('#correct_banner').removeClass('hidden');
-                    
-                }
-            });
-        }
-        else {
-            
-            $('#wrong_banner').removeClass('hidden');
-            
-        }
-    });
-    
 </script>
 </html>

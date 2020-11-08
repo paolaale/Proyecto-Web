@@ -29,7 +29,6 @@ const userSchema = mongoose.Schema({
         hard: Number
     },
     score: Number,
-    rankingPosition: Number,
     createdDate: Date
 });
 
@@ -56,10 +55,6 @@ const User = mongoose.model("User", userSchema);
 const Problem = mongoose.model("Problem", problemSchema);
 
 // Commons
-const calculateRanking = async score => {
-    const totalUsers = await User.find({ score: { $gt: score } });
-    return (totalUsers.length + 1);
-};
 
 
 // Metodos publicos
@@ -91,6 +86,11 @@ const registerUser = async userInfo => {
         email,
         password: hashPassword,
         score: 0.0,
+        problemSetDifficulty: {
+            easy: 0,
+            medium: 0,
+            hard: 0
+        },
         createdDate: new Date()
     });
     const createdUser = await newUser.save();
@@ -101,7 +101,7 @@ const loginUser = async userInfo => {
     const { email, password } = userInfo;
     const [credentials] = await User.find({ email }).exec();
     if (credentials) {
-        areCorrectCredentials = await correctPassword(password, credentials.password);
+        const areCorrectCredentials = await correctPassword(password, credentials.password);
         if (areCorrectCredentials) {
             return credentials;
         }
@@ -200,7 +200,6 @@ const addProblemToUser = async (problemId, userId) => {
         user.problemSet.push(problemId);
         const problem = await Problem.findById(problemId);
         user.score = user.score + problem.points;
-        user.rankingPosition = await calculateRanking(user.score);
 
         if (problem.difficulty === "Fácil") {
             user.problemSetDifficulty.easy = user.problemSetDifficulty.easy + 1;
