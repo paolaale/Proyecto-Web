@@ -54,13 +54,18 @@ app.get("/lista-problemas", async function (req, res, next) {
 // vista de un problema
 app.get("/problema", redirectLogin, async function (req, res) {
     const problema = await getProblem(req.query.id);
-    res.render("problem/problem", { problem: problema });
+    res.render("problem/problem", { problem: problema, length: 1, index: 0, problemAction: 'problema' });
 });
 
 app.get('/rafaga', redirectLogin, async function(req, res){
     const a = '5f9cb2d78ef5402e8a8ea6f4';
-    const problema = await getProblem(a);
-    res.render('problem/rafaga', { rafagas: [problema, problema] });
+    const b = '5f9f594e64347aa3c8dfb933';
+    const c = '5fa43071a457d122de09a14c';
+    const problema1 = await getProblem(a);
+    const problema2 = await getProblem(b);
+    const problema3 = await getProblem(c);
+    const array = [problema1, problema2, problema3];
+    res.render('problem/rafaga', { rafagas: array, length: array.length, index: 0, problemAction: 'rafaga' });
 });
 
 app.get("/signup", redirectHome, function (req, res) {

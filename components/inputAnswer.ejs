@@ -30,7 +30,7 @@
         
     </div>
 </div>
-<form role="form">
+<div>
     <div class="flex justify-center mb-5" id="single-answer">
         <input placeholder="Tu respuesta" type="text" name="answer" id="single-answer-input" class="bg-gray-200 w-10/12 h-16 rounded-lg mx-auto py-3 px-3 shadow-inner outline"/>
     </div>
@@ -43,11 +43,17 @@
     </div>
 
     <div class="flex justify-center mb-3">
-        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded outline" type="submit" id="submit">
+        <% if (length-1 === index) {   %>
+        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded outline" id="submit">
             Calificar
         </button>
+        <% } else {  %>
+            <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded outline next-button">
+                siguiente
+            </button>
+        <%   }  %>
     </div>
-</form>
+</div>
 
 <script>
     $('.cerrar').on('click', function(){
@@ -65,10 +71,19 @@
         $('#multiple-answer-input').val($(this).attr('data-answer'));
     });
 
+    const submitRafagas = () =>{
+        console.log('calificar rafagas')
+    };
+
+
     //verify submission 
     const answer = "<%- problem.solution %>" ;
     const problemType =  "<%- problem.type %>";
+    const problemAction = "<%- problemAction %>";
 
+    if (problemAction === 'rafaga') {
+        submitRafagas();
+    }
     $('#submit').on('click', function(event) {
         event.preventDefault();
         $('#correct_banner').addClass('hidden');
@@ -103,4 +118,5 @@
         $(bannerName).removeClass('hidden'); // Este se debería de quitar una vez leyendo el tipo de problema
     };
 
+    
 </script>

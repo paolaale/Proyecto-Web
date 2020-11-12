@@ -21,13 +21,18 @@
 
     <span id="countdown" class="text-xl">10</span>
 
-    <% rafagas.forEach(rafaga => {  %>
-    <main class="w-full md:w-9/12 mx-auto p-3 mt-5 bg-white rounded-lg shadow-lg">
-            <h1 class="italic text-center text-xl"> <%= rafaga.description %> </h1>
-            <div class="shadow-answer rounded-lg p-3 my-4 w-9/12 mx-auto">
-                <%- include("../../components/inputAnswer", {problem: rafaga}) -%>
-            </div>
-    </main>
+    <% rafagas.forEach((rafaga, index) => {  %>
+        <% if (index > 0) {  %>
+            <main class="w-full md:w-9/12 mx-auto p-3 mt-5 bg-white rounded-lg shadow-lg hidden" id=<%=`inputAnswer-${index}` %> data-index= <%=index%>  >
+        <% } else {   %>``
+            <main class="w-full md:w-9/12 mx-auto p-3 mt-5 bg-white rounded-lg shadow-lg" id=<%=`inputAnswer-${index}` %> data-index= <%=index%> >
+        <% }  %>
+                <h1> INDEX : <%= index %></h1>
+                <h1 class="italic text-center text-xl"> <%= rafaga.description %>  </h1>
+                <div class="shadow-answer rounded-lg p-3 my-4 w-9/12 mx-auto">
+                    <%- include("../../components/inputAnswer", {problem: rafaga, length, index, problemAction}) -%>
+                </div>
+            </main>
     <% });  %>
 
 </body>
@@ -39,6 +44,16 @@
         document.getElementById("countdown").textContent = seconds;
         if (seconds <= 0) clearInterval(countdown);
     }, 1000);
+
+    $('.next-button').on('click', function(){
+        const nextIndex = parseInt($(this).parent().parent().parent().parent().attr('data-index')) + 1;
+        $(this).parent().parent().parent().parent().addClass('hidden');
+        $(`#inputAnswer-${nextIndex}`).removeClass('hidden');
+    });
+
+    const submitRafagas = () =>{
+        console.log('calificar rafagas')
+    };
 </script>
 
 
