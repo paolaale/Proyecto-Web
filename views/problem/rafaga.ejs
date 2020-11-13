@@ -19,15 +19,16 @@
 </head>
 <body class="bg-blue-100">
 
-    <span id="countdown" class="text-xl">10</span>
+    <aside id="finalPointsBanner" class="bg-white w-1/4 mx-auto p-4 text-center shadow-lg rounded-lg mt-5 hidden">
+        ¡Obtuviste <span id="finalPoints">0</span> puntos!
+    </aside>
 
     <% rafagas.forEach((rafaga, index) => {  %>
         <% if (index > 0) {  %>
             <main class="w-full md:w-9/12 mx-auto p-3 mt-5 bg-white rounded-lg shadow-lg hidden" id=<%=`inputAnswer-${index}` %> data-index= <%=index%>  >
-        <% } else {   %>``
+        <% } else {   %>
             <main class="w-full md:w-9/12 mx-auto p-3 mt-5 bg-white rounded-lg shadow-lg" id=<%=`inputAnswer-${index}` %> data-index= <%=index%> >
         <% }  %>
-                <h1> INDEX : <%= index %></h1>
                 <h1 class="italic text-center text-xl"> <%= rafaga.description %>  </h1>
                 <div class="shadow-answer rounded-lg p-3 my-4 w-9/12 mx-auto">
                     <%- include("../../components/inputAnswer", {problem: rafaga, length, index, problemAction}) -%>
@@ -38,22 +39,54 @@
 </body>
 
 <script>
-    var seconds = document.getElementById("countdown").textContent;
-    var countdown = setInterval(function() {
-        seconds--;
-        document.getElementById("countdown").textContent = seconds;
-        if (seconds <= 0) clearInterval(countdown);
-    }, 1000);
 
+    const rafagasArray = JSON.parse(`<%- JSON.stringify(rafagas) %>`);
+    let answerSet = [];
+    let correctRafagas = [];
+    let final_Score = 0;
+
+    const solutionSet = rafagasArray.map(r => {
+        return r.solution;
+    });
+    
     $('.next-button').on('click', function(){
         const nextIndex = parseInt($(this).parent().parent().parent().parent().attr('data-index')) + 1;
         $(this).parent().parent().parent().parent().addClass('hidden');
         $(`#inputAnswer-${nextIndex}`).removeClass('hidden');
     });
 
-    const submitRafagas = () =>{
-        console.log('calificar rafagas')
-    };
+    $('#submit').on('click', function(event) {
+        console.log('subit rafaga')
+        answerSet = rafagasArray.map((raf, i) => {
+            const inputId = raf.type[0] === 'Abierta' ? 'single-answer' : 'multiple-answer';
+            const theAnswer = $(`#inputAnswer-${i}`).find(`input#${inputId}-input`).val();
+            return theAnswer;
+        });
+
+        rafagasArray.forEach((e, ii) => {
+            if(solutionSet[ii] === answerSet[ii]){
+                correctRafagas.push(e._id);
+                final_Score += e.points;
+            }
+        });
+
+        var info = {
+            responses: correctRafagas
+        };
+
+        $.post("/submit-answer", info, function(data) {
+            if (data) {
+                console.log('rafaga submitted');
+            }
+        });
+
+        correctRafagas = [];
+        console.log('final score', final_Score);
+        $('#finalPoints').text(final_Score);
+        $('#finalPointsBanner').removeClass('hidden');
+        $('main').addClass('hidden');
+    });
+
 </script>
 
 

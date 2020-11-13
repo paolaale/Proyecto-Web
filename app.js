@@ -140,12 +140,8 @@ app.post("/profile", redirectLogin, async function (req, res) {
     res.render("profile/profile", { user });
 });
 
-//provisionalmente renderear el dashboard
 app.post("/submit-answer", function (req, res, next) {
-    console.log(req.body);
-    
-    addProblemToUser(req.body.problemId, USER_ID);
-    
+    addProblemToUser(req.body.responses, USER_ID);
     res.json(true);
 });
 

@@ -115,5 +115,38 @@
         $(contentId).removeClass('hidden');
     });
 
+    //verify submission 
+    const answer = "<%- problem.solution %>" ;
+    const problemType =  "<%- problem.type %>";
+    const problemAction = "<%- problemAction %>";
+
+    if (problemAction === 'rafaga') {
+        submitRafagas();
+    }
+    $('#submit').on('click', function(event) {
+        event.preventDefault();
+        $('#correct_banner').addClass('hidden');
+        $('#wrong_banner').addClass('hidden');
+        const inputAnswer = problemType === 'Abierta' ? '#single-answer-input' : '#multiple-answer-input';
+        var userAns = $(inputAnswer).val().trim();
+
+        if (answer === userAns) {
+            $('#correct_banner').removeClass('hidden');
+
+            var info = {
+                responses: ["<%- problem._id %>"]
+            };
+
+            $.post("/submit-answer", info, function(data) {
+                if (data) {
+                    console.log('problema submitted');
+                }
+            });
+        }
+        else {
+            $('#wrong_banner').removeClass('hidden');
+        }
+    });
+
 </script>
 </html>

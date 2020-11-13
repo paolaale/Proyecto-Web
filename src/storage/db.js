@@ -190,32 +190,31 @@ const searchProblem = async info => {
     return null;
 };
 
-const addProblemToUser = async (problemId, userId) => {
-    console.log("Prueba: " +  problemId);
+const addProblemToUser = async (problemsId, userId) => {
     const user = await getUserInfo(userId);
-    let setOfProblems = user.problemSet;
-    
-    if (!setOfProblems.includes(problemId)) {
+    const setOfProblems = user.problemSet;
+
+    for(let i=0; i<problemsId.length; i++) {
         
-        user.problemSet.push(problemId);
-        const problem = await Problem.findById(problemId);
-        user.score = user.score + problem.points;
+        if (!setOfProblems.includes(problemsId[i])) {
+            user.problemSet.push(problemsId[i]);
+            const problem = await Problem.findById(problemsId[i]);
+            user.score = user.score + problem.points;
 
-        if (problem.difficulty === "Fácil") {
-            user.problemSetDifficulty.easy = user.problemSetDifficulty.easy + 1;
+            if (problem.difficulty === "Fácil") {
+                user.problemSetDifficulty.easy = user.problemSetDifficulty.easy + 1;
+            }
+            else if (problem.difficulty === "Media") {
+                user.problemSetDifficulty.medium = user.problemSetDifficulty.medium + 1;
+            }
+            else {
+                user.problemSetDifficulty.hard = user.problemSetDifficulty.hard + 1;
+            }
+            await user.save();
         }
-        else if (problem.difficulty === "Media") {
-            user.problemSetDifficulty.medium = user.problemSetDifficulty.medium + 1;
-        }
-        else {
-            user.problemSetDifficulty.hard = user.problemSetDifficulty.hard + 1;
-        }
-        user.save();
-
-        return false;
     }
+    
 
-    return true;
 };
 
 module.exports = {
