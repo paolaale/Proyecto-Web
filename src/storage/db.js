@@ -165,8 +165,13 @@ const addProblem = (info) => {
 };
 
 const loadProblems = async grade => {
-    const sGrade = parseInt(grade);
-    const foundProblems = await Problem.find({ "schoolGrade": sGrade }).exec();
+    let filter = {};
+    if (grade){
+        const sGrade = parseInt(grade);
+        filter = { "schoolGrade": sGrade };
+    } 
+    
+    const foundProblems = await Problem.find(filter).exec();
     if (foundProblems) {
         return foundProblems;
     }

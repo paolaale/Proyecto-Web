@@ -7,6 +7,11 @@
         display: none;
     }
 
+    .selected-tab {
+        border-color: rgb(102, 126, 234);
+        color: rgb(99, 102, 241);
+    }
+
     @media (min-width: 640px) {
         #burger-menu {
             display: none !important;
@@ -23,16 +28,20 @@
                 </div>
                 <div class="hidden sm:ml-6 sm:flex">
                     <a href="/home"
-                        class="inline-flex items-center px-1 pt-1 border-b-2 border-indigo-500 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out">
+                        class="home inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 text-gray-500 focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out ">
                         Inicio
                     </a>
-                    <a href="#"
-                        class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                    <a href="/lista-problemas"
+                        class="problemas ml-8 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                         Problemas
                     </a>
-                    <a href="#"
-                        class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                    <a href="/rafaga"
+                        class="rafaga ml-8 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                         Ráfagas
+                    </a>
+                    <a href="/ranking"
+                        class="ranking ml-8 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                        Ranking
                     </a>
                 </div>
             </div>
@@ -43,8 +52,7 @@
                         <button
                             class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
                             id="user-menu" aria-label="User menu" aria-haspopup="true">
-                            <img class="h-8 w-8 rounded-full profile-pic" onclick="showOptions()"
-                                src="https://lumiere-a.akamaihd.net/v1/images/2b65901707e2087367946f7b7772fd8335c6c9e5.jpeg?region=0,0,600,600"
+                            <img class="h-8 w-8 rounded-full profile-pic" onclick="showOptions()" src="img/spider.jpg"
                                 alt="Profile picture">
                         </button>
                     </div>
@@ -52,13 +60,10 @@
                     <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg" id="options">
                         <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical"
                             aria-labelledby="user-menu">
-                            <a href="#"
+                            <a href="/profile"
                                 class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                                 role="menuitem">Perfil</a>
-                            <a href="#"
-                                class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
-                                role="menuitem">Progreso</a>
-                            <a href="#"
+                            <a href="/logout"
                                 class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                                 role="menuitem">Cerrar sesión</a>
                         </div>
@@ -89,30 +94,30 @@
 
     <div class="hidden sm:hidden" id="burger-menu">
         <div class="pt-2 pb-3">
-            <a href="#"
-                class="block pl-3 pr-4 py-2 border-l-4 border-indigo-500 text-base font-medium text-indigo-700 bg-indigo-50 focus:outline-none focus:text-indigo-800 focus:bg-indigo-100 focus:border-indigo-700 transition duration-150 ease-in-out">
+            <a href="/home"
+                class="home block pl-3 pr-4 py-2 border-l-4 text-base font-medium  focus:outline-none focus:text-gray-30 focus:bg-indigo-100 focus:border-indigo-700 transition duration-150 ease-in-out">
                 Inicio
             </a>
-            <a href="#"
-                class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+            <a href="/lista-problemas"
+                class="problemas mt-1 block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
                 Problemas
             </a>
-            <a href="#"
-                class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+            <a href="rafaga"
+                class="rafaga mt-1 block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
                 Ráfagas
+            </a>
+            <a href="ranking"
+                class="ranking mt-1 block pl-3 pr-4 py-2 border-l-4 text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+                Ranking
             </a>
         </div>
         <div class="pt-4 pb-3 border-t border-gray-200">
             <div class="mt-3">
-                <a href="#"
+                <a href="/profile"
                     class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out">
                     Perfil
                 </a>
-                <a href="#"
-                    class="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out">
-                    Progreso
-                </a>
-                <a href="#"
+                <a href="/logout"
                     class="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out">
                     Cerrar sesión
                 </a>
@@ -151,4 +156,8 @@
             isBurgerMenuOpen = true;
         }
     }
+    const tab = '<%- tab %>';
+    const idTab = `.${tab}`;
+    $(idTab).addClass('selected-tab');
+
 </script>
