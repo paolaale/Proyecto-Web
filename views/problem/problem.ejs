@@ -47,13 +47,13 @@
 </head>
 <body class="bg-blue-100">
 
-    <a href="/home">
+    <a href="/lista-problemas">
         <i class="fas fa-arrow-left text-4xl mt-5 ml-5 mb-3"></i>
     </a>
 
-    <div class="flex justify-between mt-3 mb-8">
+    <div class="flex justify-between flex-col lg:flex-row  mt-3 mb-8">
 
-        <section class="w-2/5 mx-4 ">
+        <section class="w-11/12 mx-auto  lg:w-2/5 lg:mx-4 ">
 
             <aside class="rounded-lg shadow-lg">
                 <div id="pestanas" class="w-full flex justify-between">
@@ -98,7 +98,7 @@
         </section>
     
         <!-- ANSWER SECCTION -->
-        <section id="problem" class="w-3/5 mr-4 py-3 bg-white rounded-lg shadow-lg">
+        <section id="problem" class="w-11/12 mx-auto lg:w-3/5 lg:mr-4 mt-4 lg:mt-0 py-3 bg-white rounded-lg shadow-lg">
             <%- include("../../components/inputAnswer") -%>
         </section>
 

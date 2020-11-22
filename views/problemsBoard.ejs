@@ -2,10 +2,7 @@
 
 <%- include("../components/navbar") -%>
 
-<div class="mt-4 pt-2 px-12 relative mx-auto text-gray-600">
-    <div class="pb-8">
-        <h1 class="text-2xl leading-6 font-medium text-gray-900">Todos</h1>
-    </div>
+<div class="mt-4 mb-5 pt-2 px-12 relative mx-auto text-gray-600">
     <form action="/search-problem" method="POST">
         <div class="relative text-gray-600 focus-within:text-gray-400">
             <span class="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -25,20 +22,20 @@
     <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
         <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
             <div>
-                <table class="table-auto">
-                    <thead>
+                <table class="table-auto w-full">
+                    <thead class="bg-gray-500">
                         <tr>
-                            <th class="px-4 py-2">ID</th>
-                            <th class="px-4 py-2">Título</th>
-                            <th class="px-4 py-2">Tema</th>
-                            <th class="px-4 py-2">Dificultad</th>
+                            <th class="px-4 py-2 text-left hidden md:block">ID</th>
+                            <th class="px-4 py-2 text-left">Título</th>
+                            <th class="px-4 py-2 text-left">Tema</th>
+                            <th class="px-4 py-2 text-left">Dificultad</th>
                         </tr>
                     </thead>
                     <tbody>
                         <%if (problems != "") { %>
                         <%problems.forEach(function(problem){%>
-                        <tr class="hover:bg-gray-200">
-                            <td class="border px-4 py-2 cursor-pointer"><%=problem.id%></td>
+                        <tr class="hover:bg-gray-200 bg-white">
+                            <td class="border px-4 py-2 cursor-pointer hidden md:block"><%=problem.id%></td>
                             <td class=" border px-4 py-2 cursor-pointer">
                                 <a href="/problema?id=<%=problem._id%>">
                                     <%=problem.name%>
@@ -55,7 +52,7 @@
                 </table>
             </div>
         </div>
-        <aside class="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3">
+        <!-- <aside class="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3">
             <div class="mb-4">
                 <h2 class="text-lg leading-6 font-normal text-gray-900 mb-2">Temas</h2>
                 <span class="inline-flex rounded-md shadow-sm">
@@ -77,6 +74,6 @@
             <div class="mb-4">
                 <h2 class="text-lg leading-6 font-normal text-gray-900 mb-2">Referencias</h2>
             </div>
-        </aside>
+        </aside> -->
     </div>
 </main>

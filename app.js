@@ -37,18 +37,14 @@ app.get("/", function (req, res) {
 
 // vista principal iniciando sesión
 app.get("/home", redirectLogin, function (req, res) {
-    res.render("dashboard");
+    res.render("dashboard", {tab: 'home'});
 });
 
 // vista tras escoger grado
-app.get("/lista-problemas", async function (req, res, next) {
+app.get("/lista-problemas",redirectLogin, async function (req, res, next) {
     currentGrade = req.query.grado;
     const problemas = await loadProblems(currentGrade);
-    if (IS_LOGGED) {
-        res.render("problemsBoard", { problems: problemas });
-    } else {
-        next();
-    }
+    res.render("problemsBoard", { problems: problemas, tab:'problemas' });
 });
 
 // vista de un problema
@@ -65,7 +61,7 @@ app.get('/rafaga', redirectLogin, async function(req, res){
     const problema2 = await getProblem(b);
     const problema3 = await getProblem(c);
     const array = [problema1, problema2, problema3];
-    res.render('problem/rafaga', { rafagas: array, length: array.length, index: 0, problemAction: 'rafaga' });
+    res.render('problem/rafaga', { rafagas: array, length: array.length, index: 0, problemAction: 'rafaga' ,tab:'rafaga' });
 });
 
 app.get("/signup", redirectHome, function (req, res) {
@@ -110,19 +106,12 @@ app.post("/login", redirectHome, async function (req, res) {
 });
 
 //Buscador de problemas en el board de problemas
-app.post("/search-problem", async function (req, res, next) {
-    console.log("paapaassss");
+app.post("/search-problem", redirectLogin, async function (req, res) {
     const problemas = await searchProblem(req.body.search);
-    if (IS_LOGGED) {
-
-        console.log(problemas);
-        res.render("problemsBoard", { problems: problemas });
-    } else {
-        next();
-    }
+    res.render("problemsBoard", { problems: problemas, tab: 'problemas' });
 });
 
-app.post('/logout', redirectLogin, function (req, res) {
+app.get('/logout', redirectLogin, function (req, res) {
     IS_LOGGED = false;
     USER_ID = null;
     res.redirect('/login');
@@ -131,7 +120,7 @@ app.post('/logout', redirectLogin, function (req, res) {
 
 app.get("/profile", redirectLogin, async function (req, res) {
     const user = await getUserInfo(USER_ID);
-    res.render("profile/profile", { user });
+    res.render("profile/profile", { user, tab:'home' });
 });
 
 app.post("/profile", redirectLogin, async function (req, res) {
@@ -151,7 +140,7 @@ app.get('/ranking', redirectLogin, async function(req, res) {
     for(let i=0; i<3; i++){
         top.push(allUsers[i]);
     }
-    res.render('ranking/ranking', {allUsers, tops: top, userId: USER_ID});
+    res.render('ranking/ranking', {allUsers, tops: top, userId: USER_ID, tab:'ranking'});
 });
 
 //admin methods
