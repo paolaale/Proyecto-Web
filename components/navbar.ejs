@@ -1,10 +1,12 @@
 <style>
-    #options{
+    #options {
         display: none;
     }
+
     #burger-menu {
         display: none;
     }
+
     @media (min-width: 640px) {
         #burger-menu {
             display: none !important;
@@ -46,16 +48,7 @@
                                 alt="Profile picture">
                         </button>
                     </div>
-                    <!--
-                    Profile dropdown panel, show/hide based on dropdown state.
-        
-                    Entering: "transition ease-out duration-200"
-                        From: "transform opacity-0 scale-95"
-                        To: "transform opacity-100 scale-100"
-                    Leaving: "transition ease-in duration-75"
-                        From: "transform opacity-100 scale-100"
-                        To: "transform opacity-0 scale-95"
-                    -->
+
                     <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg" id="options">
                         <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical"
                             aria-labelledby="user-menu">
@@ -76,22 +69,14 @@
                 <!-- Mobile menu button -->
                 <button
                     class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-                    aria-label="Main menu" aria-expanded="false" onclick="showBurgerMenu()"">
-                    <!-- Icon when menu is closed. -->
-                    <!-- 
-                        Heroicon name: menu
-                        Menu open: "hidden", Menu closed: "block"
-                     -->
+                    aria-label="Main menu" aria-expanded="false" onclick="showBurgerMenu()">
+
                     <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
-                    <!-- Icon when menu is open. -->
-                    <!--
-                        Heroicon name: x
-                        Menu open: "block", Menu closed: "hidden"
-                    -->
+
                     <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -101,11 +86,6 @@
             </div>
         </div>
     </div>
-
-    <!--
-      Mobile menu, toggle classes based on menu state.
-      Menu open: "block", Menu closed: "hidden"
-    -->
 
     <div class="hidden sm:hidden" id="burger-menu">
         <div class="pt-2 pb-3">
@@ -140,7 +120,9 @@
         </div>
     </div>
 </nav>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
 
