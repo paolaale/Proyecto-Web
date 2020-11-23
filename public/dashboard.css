@@ -2,7 +2,7 @@ html, body, .div-container {
     height: 100%;
 }
 .shadow-bg-1 {
-    box-shadow: 0 10px 15px -3px orange, 0 4px 6px -2px rgba(0, 0, 0, 0.05); */
+    box-shadow: 0 10px 15px -3px orange, 0 4px 6px -2px rgba(0, 0, 0, 0.05); 
 }
 .shadow-bg-2 {
     box-shadow: 0 10px 15px -3px purple, 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -18,4 +18,8 @@ html, body, .div-container {
 }
 .shadow-bg-6 {
     box-shadow: 0 10px 15px -3px blue, 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.border-color {
+    border-color: #F1E189;
 }

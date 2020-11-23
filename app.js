@@ -41,7 +41,7 @@ app.get("/home", redirectLogin, function (req, res) {
 });
 
 // vista tras escoger grado
-app.get("/lista-problemas", async function (req, res, next) {
+app.get("/lista-problemas", redirectLogin, async function (req, res, next) {
     currentGrade = req.query.grado;
     const problemas = await loadProblems(currentGrade);
     if (IS_LOGGED) {
@@ -57,7 +57,7 @@ app.get("/problema", redirectLogin, async function (req, res) {
     res.render("problem/problem", { problem: problema, length: 1, index: 0, problemAction: 'problema' });
 });
 
-app.get('/rafaga', redirectLogin, async function(req, res){
+app.get('/rafaga', redirectLogin, async function (req, res) {
     const a = '5f9cb2d78ef5402e8a8ea6f4';
     const b = '5f9f594e64347aa3c8dfb933';
     const c = '5fa43071a457d122de09a14c';
@@ -145,13 +145,13 @@ app.post("/submit-answer", function (req, res, next) {
     res.json(true);
 });
 
-app.get('/ranking', redirectLogin, async function(req, res) {
+app.get('/ranking', redirectLogin, async function (req, res) {
     const allUsers = await getUsers();
     const top = [];
-    for(let i=0; i<3; i++){
+    for (let i = 0; i < 3; i++) {
         top.push(allUsers[i]);
     }
-    res.render('ranking/ranking', {allUsers, tops: top, userId: USER_ID});
+    res.render('ranking/ranking', { allUsers, tops: top, userId: USER_ID });
 });
 
 //admin methods
