@@ -2,3 +2,7 @@ body {
     background-image: url('img/background-all-tabs.png');
     -webkit-background-size: cover;
 }
+
+.bg-thead {
+    background-color: #AF8BAF;
+}
