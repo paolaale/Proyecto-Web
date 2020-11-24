@@ -23,6 +23,14 @@ const userSchema = mongoose.Schema({
     password: { type: String, required: true },
     problemSet: [String],
     burstSet: [String],
+    burstTopics: {
+        additions: Number,
+        substractions: Number,
+        fractions: Number,
+        divisions: Number,
+        multiplications: Number,
+        mixed: Number
+    },
     problemSetDifficulty: {
         easy: Number,
         medium: Number,
@@ -43,17 +51,28 @@ const problemSchema = mongoose.Schema({
     solution: { type: String, required: true },
     explanation: String,
     resources: [String],
-    type: [String],
+    problemType: String,
+    type: String,
+    answerOptions: [String],
     hints: [String],
     acceptancy: Number,
     numOfSubmits: Number,
     correctSubmits: Number
 });
 
+const blastSchema = mongoose.Schema({
+    name: { type: String, required: true },
+    id: { type: String, required: true },
+    topic: { type: String, required: true },
+    description: { type: String, required: true },
+    difficulty: String,
+    problemsBlast: {type: [String], required: true}
+});
+
 // Creación de esquemas
 const User = mongoose.model("User", userSchema);
 const Problem = mongoose.model("Problem", problemSchema);
-
+const Blast = mongoose.model("Blast", blastSchema);
 // Commons
 
 
@@ -86,6 +105,14 @@ const registerUser = async userInfo => {
         email,
         password: hashPassword,
         score: 0.0,
+        burstTopics: {
+            additions: 0,
+            substractions: 0,
+            fractions: 0,
+            divisions: 0,
+            multiplications: 0,
+            mixed: 0
+        },
         problemSetDifficulty: {
             easy: 0,
             medium: 0,
@@ -146,8 +173,10 @@ const addProblem = (info) => {
         difficulty: info.difficulty,
         solution: info.solution,
         explanation: info.explanation,
+        problemType: info.problemType,
         type: info.type,
         resources: info.resource,
+        answerOptions: info.multOpt,
         hints: info.hint,
         acceptancy: 0,
         numOfSubmits: 0,
@@ -168,11 +197,15 @@ const loadProblems = async grade => {
     let filter = {};
     if (grade){
         const sGrade = parseInt(grade);
-        filter = { "schoolGrade": sGrade };
+        filter = { "schoolGrade": sGrade, "problemType": "Normal" };
+    }
+    else {
+        filter = { "problemType": "Normal" };
     } 
     
     const foundProblems = await Problem.find(filter).exec();
     if (foundProblems) {
+        
         return foundProblems;
     }
     return null;
@@ -218,8 +251,78 @@ const addProblemToUser = async (problemsId, userId) => {
             await user.save();
         }
     }
-    
+};
 
+// blast methods
+const addBlast = async (info) => {
+    const newBlast = new Blast({
+        name: info.name,
+        id: info.id,
+        topic: info.topic,
+        description: info.description,
+        difficulty: info.difficulty,
+        problemsBlast: info.problems
+    });
+
+    newBlast.save(function (err) {
+        if (!err) {
+            console.log("Ráfaga creada correctamente");
+        }
+        else {
+            console.log(err);
+        }
+    });
+};
+
+const loadBlasts = async () => {
+    
+    const foundBlasts = await Blast.find().exec();
+    if (foundBlasts) {
+        
+        return foundBlasts;
+    }
+    return null;
+};
+
+const getBlast = async blastId => {
+    const foundBlast = await Blast.findById(blastId).exec();
+
+    if (foundBlast) {
+        return foundBlast;
+    }
+    return null;
+};
+
+const addBlastToUser = async (blastId, userId) => {
+    const user = await getUserInfo(userId);
+    const setOfBlasts = user.burstSet;
+    console.log(blastId);
+    if (!setOfBlasts.includes(blastId)) {
+        user.burstSet.push(blastId);
+        const blast = await Blast.findById(blastId);
+ 
+
+        if (blast.topic === "Sumas") {
+            user.burstTopics.additions = user.burstTopics.additions + 1;
+        }
+        else if (blast.topic === "Restas") {
+            user.burstTopics.substractions = user.burstTopics.substractions + 1;
+        }
+        else if (blast.topic === "Multiplicaciones") {
+            user.burstTopics.multiplications = user.burstTopics.multiplications + 1;
+        }
+        else if (blast.topic === "Divisiones") {
+            user.burstTopics.multiplications = user.burstTopics.multiplications + 1;
+        }
+        else if (blast.topic === "Fracciones") {
+            user.burstTopics.fractions = user.burstTopics.fractions + 1;
+        }
+        else {
+            user.burstTopics.mixed = user.burstTopics.mixed + 1;
+        }
+        await user.save();
+    }
+    
 };
 
 module.exports = {
@@ -232,5 +335,9 @@ module.exports = {
     getProblem,
     searchProblem,
     addProblemToUser,
-    getUsers
+    getUsers,
+    addBlast,
+    loadBlasts,
+    getBlast,
+    addBlastToUser
 };

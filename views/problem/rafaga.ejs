@@ -65,11 +65,12 @@
     $('#submit').on('click', function(event) {
         console.log('subit rafaga')
         answerSet = rafagasArray.map((raf, i) => {
-            const inputId = raf.type[0] === 'Abierta' ? 'single-answer' : 'multiple-answer';
+            const inputId = raf.type === 'Abierta' ? 'single-answer' : 'multiple-answer';
+    
             const theAnswer = $(`#inputAnswer-${i}`).find(`input#${inputId}-input`).val();
             return theAnswer;
         });
-
+        console.log(answerSet);
         rafagasArray.forEach((e, ii) => {
             if(solutionSet[ii] === answerSet[ii]){
                 correctRafagas.push(e._id);
@@ -78,7 +79,9 @@
         });
 
         var info = {
-            responses: correctRafagas
+            responses: correctRafagas,
+            type: "blast",
+            blastId: "<%- blast._id %>"
         };
 
         $.post("/submit-answer", info, function(data) {

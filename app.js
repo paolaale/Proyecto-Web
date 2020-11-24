@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const ejs = require("ejs");
 const app = express();
-const { registerUser, loginUser, getUserInfo, updateUser, addProblem, loadProblems, getProblem, searchProblem, addProblemToUser, getUsers } = require('./src/storage/db');
+const { registerUser, loginUser, getUserInfo, updateUser, addProblem, loadProblems, getProblem, searchProblem, addProblemToUser, getUsers, addBlast, loadBlasts, getBlast, addBlastToUser } = require('./src/storage/db');
 
 
 let IS_LOGGED = false;
@@ -50,18 +50,27 @@ app.get("/lista-problemas",redirectLogin, async function (req, res, next) {
 // vista de un problema
 app.get("/problema", redirectLogin, async function (req, res) {
     const problema = await getProblem(req.query.id);
-    res.render("problem/problem", { problem: problema, length: 1, index: 0, problemAction: 'problema' });
+    res.render("problem/problem", { problem: problema, length: 1, index: 0, problemAction: 'problema',  problemType: 'normal'});
 });
 
-app.get('/rafaga', redirectLogin, async function(req, res){
-    const a = '5f9cb2d78ef5402e8a8ea6f4';
-    const b = '5f9f594e64347aa3c8dfb933';
-    const c = '5fa43071a457d122de09a14c';
-    const problema1 = await getProblem(a);
-    const problema2 = await getProblem(b);
-    const problema3 = await getProblem(c);
-    const array = [problema1, problema2, problema3];
-    res.render('problem/rafaga', { rafagas: array, length: array.length, index: 0, problemAction: 'rafaga' ,tab:'rafaga' });
+app.get("/all-blasts", redirectLogin, async function(req, res){
+    const rafagas = await loadBlasts();
+    res.render("blasts-list", {blasts: rafagas, tab:'rafaga'});
+});
+
+
+app.get('/blast', redirectLogin, async function(req, res){
+    const blastId = req.query.id;
+    const blastSelected = await getBlast(blastId);
+    let array = [];
+    for (let i = 0; i < blastSelected.problemsBlast.length; i++) {
+        const problem = await getProblem(blastSelected.problemsBlast[i]);
+        array.push(problem);
+    }
+
+    
+    // me gustaria cambiar el nombre de la variable rafagas por questions
+    res.render('problem/rafaga', { blast: blastSelected, rafagas: array, length: array.length, index: 0, problemAction: 'rafaga' ,tab:'rafaga', problemType: 'rafaga' });
 });
 
 app.get("/signup", redirectHome, function (req, res) {
@@ -130,6 +139,11 @@ app.post("/profile", redirectLogin, async function (req, res) {
 });
 
 app.post("/submit-answer", function (req, res, next) {
+    if (req.body.type == "blast") {
+        
+        addBlastToUser(req.body.blastId, USER_ID);
+    }
+
     addProblemToUser(req.body.responses, USER_ID);
     res.json(true);
 });
@@ -143,7 +157,8 @@ app.get('/ranking', redirectLogin, async function(req, res) {
     res.render('ranking/ranking', {allUsers, tops: top, userId: USER_ID, tab:'ranking'});
 });
 
-//admin methods
+//ADMIN METHODS
+//manipulación de problemas
 app.get("/admin", function (req, res) {
     res.render("admin/addProblem");
 });
@@ -151,6 +166,16 @@ app.get("/admin", function (req, res) {
 app.post("/admin", function (req, res) {
     addProblem(req.body);
     res.render("admin/addProblem");
+});
+
+//manipulación de ráfagas
+app.get("/admin/addBlast", function (req, res) {
+    res.render("admin/addBlast");
+});
+
+app.post("/admin/addBlast", function (req, res) {
+    addBlast(req.body);
+    res.render("admin/addBlast");
 });
 
 app.listen(3000, function () {
