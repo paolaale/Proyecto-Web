@@ -265,6 +265,72 @@
 
 
 
+
+    //SEGUNDA GRAFICA
+    const { burstTopics } = userInfo;
+
+    const sumas = burstTopics.additions;
+    const restas = burstTopics.substractions;
+    const multiplicaciones = burstTopics.multiplications;
+    const divisiones = burstTopics.divisions;
+    const fracciones = burstTopics.fractions;
+    const combinada = burstTopics.mixed;
+
+    const ctx2 = document.getElementById('myBurstsChart');
+    const DoughnutData2 = {
+        datasets: [{
+            data: [
+                sumas,
+                restas,
+                multiplicaciones,
+                divisiones,
+                fracciones,
+                combinada
+
+            ],
+            backgroundColor: [
+                'rgba(0, 256, 0, 0.5)',
+                'rgba(251, 140, 0, 0.5)',
+                'rgba(256, 0, 0, 0.5)',
+                'rgba(0, 256, 0, 0.5)',
+                'rgba(251, 140, 0, 0.5)',
+                'rgba(256, 0, 0, 0.5)'
+            ],
+            borderColor: [
+                'rgba(0, 256, 0, 1)',
+                'rgba(251, 140, 0, 1)',
+                'rgba(256, 0, 0, 1)',
+                'rgba(0, 256, 0, 0.5)',
+                'rgba(251, 140, 0, 0.5)',
+                'rgba(256, 0, 0, 0.5)'
+            ],
+            hoverBackgroundColor : [
+                'rgba(0, 256, 0, 1)',
+                'rgba(251, 140, 0, 1)',
+                'rgba(256, 0, 0, 1)',
+                'rgba(0, 256, 0, 0.5)',
+                'rgba(251, 140, 0, 0.5)',
+                'rgba(256, 0, 0, 0.5)'
+            ]
+        }],
+        labels: [
+            'Sumas',
+            'Restas',
+            'Multiplicaciones',
+            'Divisiones',
+            'Fracciones',
+            'Combinada'
+        ]
+    };
+    const DoughnutChart2 = new Chart(ctx2, {
+        type: 'doughnut',
+        data: DoughnutData2
+    });
+    //FIN SEGUNDA GRAFICA
+
+
+
+
     let isEditing = false;
 
     $('#edit-button').on('click', function () {
