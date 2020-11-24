@@ -140,7 +140,7 @@ app.get('/ranking', redirectLogin, async function (req, res) {
     for (let i = 0; i < 3; i++) {
         top.push(allUsers[i]);
     }
-    res.render('ranking/ranking', { allUsers, tops: top, userId: USER_ID });
+    res.render('ranking/ranking', { allUsers, tops: top, userId: USER_ID, tab: 'ranking' });
 });
 
 //admin methods

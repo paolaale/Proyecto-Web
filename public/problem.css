@@ -1,0 +1,42 @@
+.pestana {
+    width: 32.5%;
+    padding: 3px 0 3px 0;
+    border: 3px solid bisque;
+    background-color: white;
+}
+
+.outline:focus {
+    outline: none;
+}
+
+.active {
+    font-weight: bold;
+    color: white;
+}
+
+.active[id="redaccion"] {
+    background: #01DF01;
+}
+
+.active[id="pistas"] {
+    background: #FFBF00;
+}
+
+.active[id="solucion"] {
+    background: #848484;
+}
+
+.contenido {
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    border: 2px solid bisque;
+}
+
+.shadow-answer {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.selected-answer {
+    border: 2px solid #558888;
+    background-color: #b2f5ea;
+}

@@ -1,51 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Problem</title>
-    <script src="https://kit.fontawesome.com/52e276fb65.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <!-- <link rel="stylesheet" href="../../public/inputAnswer.css"> -->
-    <style>
-        .pestana{
-            width: 32.5%;
-            padding: 3px 0 3px 0;
-            border: 3px solid bisque;
-            background-color: white;
-        }
-        .outline:focus{
-            outline: none;
-        }
-        .active{
-            font-weight: bold;
-            color: white;
-        }
-        .active[id="redaccion"]{
-            background: #01DF01;
-        }
-        .active[id="pistas"]{
-            background: #FFBF00;
-        }
-        .active[id="solucion"]{
-            background: #848484;
-        }
-        .contenido{
-            border-radius: 5px;
-            border-top-left-radius: 0px;
-            border: 2px solid bisque;
-        }
-        .shadow-answer{
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        }
-        .selected-answer{
-            border: 2px solid #558888;
-            background-color: #b2f5ea;
-        }
-    </style>
-</head>
-<body class="bg-blue-100">
+<%- include("../header") -%>
+<link rel="stylesheet" href="body.css">
+<link rel="stylesheet" href="problem.css">
+<script src="https://kit.fontawesome.com/52e276fb65.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<body>
 
     <a href="/lista-problemas">
         <i class="fas fa-arrow-left text-4xl mt-5 ml-5 mb-3"></i>
@@ -57,33 +16,36 @@
 
             <aside class="rounded-lg shadow-lg">
                 <div id="pestanas" class="w-full flex justify-between">
-                    <button id="redaccion" class="text-center rounded-t-lg outline pestana active">Redacción <i class="fas fa-search"></i> </button>
-                    <button id="pistas" class="text-center rounded-t-lg outline pestana">Pistas <i class="fab fa-readme"></i></button>
-                    <button id="solucion" class="text-center rounded-t-lg outline pestana">Solución <i class="fas fa-poll-h"></i></button>
+                    <button id="redaccion" class="text-center rounded-t-lg outline pestana active">Redacción <i
+                            class="fas fa-search"></i> </button>
+                    <button id="pistas" class="text-center rounded-t-lg outline pestana">Pistas <i
+                            class="fab fa-readme"></i></button>
+                    <button id="solucion" class="text-center rounded-t-lg outline pestana">Solución <i
+                            class="fas fa-poll-h"></i></button>
                 </div>
-    
+
                 <div id="contenido-redaccion" class="contenido bg-white px-2 py-4">
                     <h1><strong><%=problem.id%>. <%=problem.name%></strong></h1>
                     <br>
                     <p><%=problem.description%></p>
-                    
+
                 </div>
 
                 <div id="contenido-pistas" class="hidden contenido bg-white px-2 py-4">
                     <h1><strong>Pistas</strong></h1>
                     <br>
-                    
+
                     <%if (problem.hints.length > 0) { %>
-                        <%for (var i = 0; i < problem.hints.length; i++){%>
-                            <%if (0 != problem.hints[i].localeCompare("")) { %>
-                                <h1><strong>Pista <%=i + 1%></strong></h1>
-                                <p><%=problem.hints[i]%></p>
-                            <%}%>
+                    <%for (var i = 0; i < problem.hints.length; i++){%>
+                    <%if (0 != problem.hints[i].localeCompare("")) { %>
+                    <h1><strong>Pista <%=i + 1%></strong></h1>
+                    <p><%=problem.hints[i]%></p>
+                    <%}%>
                             <br>                   
                         <%}%>
                     <%} else {%>
-                        <h1><strong>¡Lo sentimos!</strong></h1>
-                        <p>Este problema no cuenta con pistas.</p>
+                    <h1><strong>¡Lo sentimos!</strong></h1>
+                    <p>Este problema no cuenta con pistas.</p>
                     <%}%>
                 </div>
 
@@ -91,12 +53,12 @@
                     <h1><strong>Solución del problema:</strong></h1><br>
                     <h1><%=problem.explanation%></h1><br>
                     <h1>Respuesta correcta: <%=problem.solution%></h1>
-                    
+
                 </div>
 
             </aside>
         </section>
-    
+
         <!-- ANSWER SECCTION -->
         <section id="problem" class="w-11/12 mx-auto lg:w-3/5 lg:mr-4 mt-4 lg:mt-0 py-3 bg-white rounded-lg shadow-lg">
             <%- include("../../components/inputAnswer") -%>
@@ -107,7 +69,7 @@
 
 <script>
     // windows functionality (pistas-redacción-solución)
-    $('.pestana').on('click', function(){
+    $('.pestana').on('click', function () {
         $('.pestana').removeClass('active');
         $(this).addClass('active');
         const contentId = `#contenido-${$(this).attr('id')}`;
@@ -116,14 +78,14 @@
     });
 
     //verify submission 
-    const answer = "<%- problem.solution %>" ;
-    const problemType =  "<%- problem.type %>";
+    const answer = "<%- problem.solution %>";
+    const problemType = "<%- problem.type %>";
     const problemAction = "<%- problemAction %>";
 
     if (problemAction === 'rafaga') {
         submitRafagas();
     }
-    $('#submit').on('click', function(event) {
+    $('#submit').on('click', function (event) {
         event.preventDefault();
         $('#correct_banner').addClass('hidden');
         $('#wrong_banner').addClass('hidden');
@@ -137,7 +99,7 @@
                 responses: ["<%- problem._id %>"]
             };
 
-            $.post("/submit-answer", info, function(data) {
+            $.post("/submit-answer", info, function (data) {
                 if (data) {
                     console.log('problema submitted');
                 }
@@ -149,4 +111,5 @@
     });
 
 </script>
+
 </html>

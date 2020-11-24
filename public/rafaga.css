@@ -1,0 +1,12 @@
+.shadow-answer{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.selected-answer{
+    border: 2px solid rgb(120, 53, 15);
+    background-color: rgb(217, 119, 6);
+    color: white;
+    font-weight: bold;
+}
+.pestana{
+    border: 5px solid bisque;
+}

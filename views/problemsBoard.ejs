@@ -1,79 +1,109 @@
 <%- include("header") -%>
+<link rel="stylesheet" href="body.css">
 
 <%- include("../components/navbar") -%>
 
-<div class="mt-4 mb-5 pt-2 px-12 relative mx-auto text-gray-600">
-    <form action="/search-problem" method="POST">
-        <div class="relative text-gray-600 focus-within:text-gray-400">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-            </span>
-            <input type="search" name="search"
-                class="py-2 pl-10 pr-16 border-2 border-gray-300 bg-white h-10 rounded-lg text-sm focus:outline-none"
-                placeholder="Buscar por nombre o id." autocomplete="off">
+<body>
+    <section>
+        <div class="mt-4 mb-5 pt-2 px-12 relative mx-auto text-gray-600">
+            <h3 class="text-xl leading-9 tracking-tight font-bold text-gray-800 sm:text-2xl sm:leading-10">
+                Problemas
+            </h3>
+            <br>
+            <form action="/search-problem" method="POST">
+                <div class="relative text-gray-600 focus-within:text-gray-400">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </span>
+                    <input type="search" name="search"
+                        class="py-2 pl-10 pr-12 border-2 border-gray-300 bg-white h-10 rounded-lg text-sm focus:outline-none"
+                        placeholder="Buscar por nombre o id." autocomplete="off">
+                </div>
+            </form>
         </div>
-    </form>
-</div>
-<main class="max-w-7xl mx-auto pb-10 lg:py-4 lg:px-12">
-    <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
-        <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
-            <div>
-                <table class="table-auto w-full">
-                    <thead class="bg-gray-500">
-                        <tr>
-                            <th class="px-4 py-2 text-left hidden md:block">ID</th>
-                            <th class="px-4 py-2 text-left">Título</th>
-                            <th class="px-4 py-2 text-left">Tema</th>
-                            <th class="px-4 py-2 text-left">Dificultad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+        <main class="max-w-7xl mx-auto pb-10 lg:py-4 lg:px-12">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
+                <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
+                    <div>
                         <%if (problems != "") { %>
-                        <%problems.forEach(function(problem){%>
-                        <tr class="hover:bg-gray-200 bg-white">
-                            <td class="border px-4 py-2 cursor-pointer hidden md:block"><%=problem.id%></td>
-                            <td class=" border px-4 py-2 cursor-pointer">
-                                <a href="/problema?id=<%=problem._id%>">
-                                    <%=problem.name%>
-                                </a>
-                            </td>
-                            <td class="border px-4 py-2 cursor-pointer"><%=problem.topic%></td>
-                            <td class="border px-4 py-2 cursor-pointer"><%=problem.difficulty%></td>
-                        </tr>
-                        <%});%>
+                        <table class="table-auto w-full">
+                            <thead class="bg-gray-500">
+                                <tr>
+                                    <th class="px-4 py-2 text-left hidden md:block">ID</th>
+                                    <th class="px-4 py-2 text-left">Título</th>
+                                    <th class="px-4 py-2 text-left">Tema</th>
+                                    <th class="px-4 py-2 text-left">Dificultad</th>
+                                    <th class="px-4 py-2 text-left">Grado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%problems.forEach(function(problem){%>
+                                <tr class="hover:bg-gray-200 bg-white">
+                                    <td class="border px-4 py-2 cursor-pointer hidden md:block"><%=problem.id%></td>
+                                    <td class=" border px-4 py-2 cursor-pointer">
+                                        <a href="/problema?id=<%=problem._id%>">
+                                            <%=problem.name%>
+                                        </a>
+                                    </td>
+                                    <td class="border px-4 py-2 cursor-pointer"><%=problem.topic%></td>
+                                    <td class="border px-4 py-2 cursor-pointer"><%=problem.difficulty%></td>
+                                    <td class="border px-4 py-2 cursor-pointer"><%=problem.schoolGrade%>°</td>
+                                </tr>
+                                <%});%>
+                            </tbody>
+                        </table>
                         <%} else {%>
                         <p>¡Lo sentimos! No hay problemas disponibles.</p>
                         <%}%>
-                        </tbody>
-                </table>
+                </div>
             </div>
+            <aside class="py-6 px-4 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3">
+                <h3 class="text-md font-bold text-gray-800 sm:text-lg">
+                    Filtros
+                </h3>
+                <hr><br>
+                <div class="mb-4">
+                    <h2 class="text-lg leading-6 font-normal text-gray-900 mb-2">Temas</h2>
+                    <span class="inline-flex rounded-md shadow-sm">
+                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                          Tema 1
+                        </button>
+                    </span>
+                    <span class="inline-flex rounded-md shadow-sm">
+                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                          Tema 2
+                        </button>
+                    </span>
+                    <span class="inline-flex rounded-md shadow-sm">
+                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                          Tema 3
+                        </button>
+                    </span>
+                </div>
+                <div class="mb-4">
+                    <h2 class="text-lg leading-6 font-normal text-gray-900 mb-2">Dificultad</h2>
+                    <span class="inline-flex rounded-md shadow-sm">
+                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                          Fácil
+                        </button>
+                    </span>
+                    <span class="inline-flex rounded-md shadow-sm">
+                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                          Medio
+                        </button>
+                    </span>
+                    <span class="inline-flex rounded-md shadow-sm">
+                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                          Díficil
+                        </button>
+                    </span>
+                </div>
+            </aside> 
         </div>
-        <!-- <aside class="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3">
-            <div class="mb-4">
-                <h2 class="text-lg leading-6 font-normal text-gray-900 mb-2">Temas</h2>
-                <span class="inline-flex rounded-md shadow-sm">
-                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                      Tema 1
-                    </button>
-                </span>
-                <span class="inline-flex rounded-md shadow-sm">
-                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                      Tema 2
-                    </button>
-                </span>
-                <span class="inline-flex rounded-md shadow-sm">
-                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                      Tema 3
-                    </button>
-                </span>
-            </div>
-            <div class="mb-4">
-                <h2 class="text-lg leading-6 font-normal text-gray-900 mb-2">Referencias</h2>
-            </div>
-        </aside> -->
-    </div>
-</main>
+    </main>
+</section>
+</body>

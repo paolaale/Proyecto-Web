@@ -1,0 +1,7 @@
+.w-fixed {
+    width: 22rem;
+}
+
+.outline:focus {
+    outline: none;
+}

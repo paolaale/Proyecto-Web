@@ -23,3 +23,8 @@ html, body, .div-container {
 .border-color {
     border-color: #F1E189;
 }
+
+.bg-all {
+    background-image: url('img/background-all-tabs.png');
+    -webkit-background-size: cover;
+}

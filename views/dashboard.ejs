@@ -2,25 +2,27 @@
 
 <link rel="stylesheet" href="dashboard.css">
 
-<%- include("../components/navbar") -%>
+<body class="bg-all">
+  <%- include("../components/navbar") -%>
 
-<div class="mt-12 text-center sm:mb-4">
-  <h2 class="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
-    GRADOS
-  </h2>
-  <p class="mt-3 max-w-2xl mx-auto text-xl leading-7 text-gray-500 sm:mt-4">
-    ¡Selecciona el grado escolar del cual quieres prácticar!
-  </p>
-</div>
-
-<main class="max-w-7xl mx-auto pb-10 lg:py-12 lg:px-8">
-  <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
-
-    <!-- side panel
-    <%- include("../components/panel") -%> -->
-
-    <!-- Grados -->
-    <%- include("../components/grades") -%>
-
+  <div class="mt-12 text-center sm:mb-4">
+    <h2 class="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
+      GRADOS
+    </h2>
+    <p class="mt-3 max-w-2xl mx-auto text-xl leading-7 text-gray-500 sm:mt-4">
+      ¡Selecciona el grado escolar del cual quieres prácticar!
+    </p>
   </div>
-</main>
+
+  <main class="max-w-7xl mx-auto pb-10 lg:py-12 lg:px-8">
+    <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
+
+      <!-- side panel-->
+      <%- include("../components/panel") -%>
+
+      <!-- Grados -->
+      <%- include("../components/grades") -%>
+
+    </div>
+  </main>
+</body>

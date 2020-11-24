@@ -1,6 +1,7 @@
 <%- include("../header") -%>
-    <%- include("../../public/style-login-register") -%>
+<link rel="stylesheet" href="style-login-register.css">
 
+<body>
     <div class="container mx-auto md:mt-8 mt-5">
         <div class="mx-auto flex justify-center pt-2 max-w-xl">
             <img src="img/name.png" alt="Logo" width="300" height="100">
@@ -11,11 +12,17 @@
                 <form class="flex-100" action="/login" method="POST">
                     <!-- 		inputs		 -->
                     <% if (error) { %>
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-3" role="alert">
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-3"
+                        role="alert">
                         <strong class="font-bold">¡Cuidado!</strong>
                         <span class="block sm:inline">Correo o contraseña incorrecta.</span>
                         <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                        <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                            <svg class="fill-current h-6 w-6 text-red-500" role="button"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <title>Close</title>
+                                <path
+                                    d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                            </svg>
                         </span>
                     </div>
                     <% } %>
@@ -23,17 +30,21 @@
                     <div class="flex flex-100 mx-8">
                         <div class="flex-grow mr-2">
                             <label class="text-white block mb-1 font-bold" for="">Correo electrónico</label>
-                            <input class="bg-gray-200 w-full rounded-lg py-3 px-3 shadow-inner" type="email"  name="email", id="email" required value=<%=email%>>
+                            <input class="bg-gray-200 w-full rounded-lg py-3 px-3 shadow-inner" type="email"
+                                name="email" , id="email" required value=<%=email%>>
                         </div>
                     </div>
                     <div class="flex flex-100 mt-4 mx-8">
                         <div class="flex-grow mr-2">
                             <label class="text-white block mb-1 font-bold" for="">Password</label>
-                            <input class="bg-gray-200 w-full rounded-lg py-3 px-3 shadow-inner" type="password" name="password", id="password" required>
+                            <input class="bg-gray-200 w-full rounded-lg py-3 px-3 shadow-inner" type="password"
+                                name="password" , id="password" required>
                         </div>
                     </div>
                     <div class="flex justify-center flex-100 mt-4 mx-8 mb-8">
-                        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" type="submit">
+                        <button
+                            class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                            type="submit">
                             Entrar
                         </button>
                     </div>
@@ -44,8 +55,9 @@
                 <a href="/signup">Crear tu cuenta</a>
             </div>
         </div>
-        
+
     </div>
 
 </body>
+
 </html>
