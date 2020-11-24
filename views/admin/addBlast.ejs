@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Añadir</title>
+    
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+</head>
+<style>
+    .multOption {
+        display: none;
+    }
+</style>
+<body>
+    <header class="page-header">
+        <!-- <img src="images/logoNikeBlanco.png" class="logo-header"> -->
+    </header>
+    <section>
+        <nav>
+            <form action="/admin/addBlast" method="POST">
+            <div class="form-group">
+                <label >Nombre:</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>ID:</label>
+                <input type="text" name="id" required>
+            </div>
+            <div class="form-group">
+                <label>Topic:</label>
+                
+                <select  name="topic" required>
+                    <option>Seleccionar</option>
+                    <option value="Sumas">Sumas</option>
+                    <option value= "Restas">Restas</option>
+                    <option value= "Multiplicaciones">Multiplicaciones</option>
+                    <option value= "Divisiones">Divisiones</option>
+                    <option value= "Fracciones">Fracciones</option>
+                    <option value= "Combinada"">Combinada</option>
+                  </select>
+            </div>
+            <div class="form-group">
+                <label>Description:</label>
+                <input type="text" name="description" required>
+            </div>
+            <div class="form-group">
+                <label>Dificultad:</label>
+                <select  name="difficulty">
+                    <option>Seleccionar</option>
+                    <option value="Fácil">Fácil</option>
+                    <option value= "Media">Media</option>
+                    <option value= "Difícil">Difícil</option>
+                  </select>
+            </div>
+
+            <div class="form-group">
+                <label>Id problem 1:</label>
+                <input type="text" name="problems" required>
+            </div>
+            <div class="form-group">
+                <label>Id problem 2:</label>
+                <input type="text" name="problems" required>
+            </div>
+            <div class="form-group">
+                <label>Id problem 3:</label>
+                <input type="text" name="problems" required>
+            </div>
+            <div class="form-group">
+                <label>Id problem 4:</label>
+                <input type="text" name="problems" required>
+            </div>
+            <div class="form-group">
+                <label>Id problem 5:</label>
+                <input type="text" name="problems" required>
+            </div>
+            <div class="form-group">
+                <label>Id problem 6:</label>
+                <input type="text" name="problems" required>
+            </div>
+            <div class="form-group">
+                <label>Id problem 7:</label>
+                <input type="text" name="problems" required>
+            </div>
+            <div class="form-group">
+                <label>Id problem 8:</label>
+                <input type="text" name="problems" required>
+            </div>
+            <div class="form-group">
+                <label>Id problem 9:</label>
+                <input type="text" name="problems" required>
+            </div>
+            <div class="form-group">
+                <label>Id problem 10:</label>
+                <input type="text" name="problems" required>
+            </div>
+ 
+            <button type="submit" class="btn add-btn">Agregar</button>
+        </form>
+        </nav>
+    </section> 
+ </body>
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+ <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+</html>

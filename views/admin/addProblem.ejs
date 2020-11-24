@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 </head>
+<style>
+    .multOption {
+        display: none;
+    }
+</style>
 <body>
     <header class="page-header">
         <!-- <img src="images/logoNikeBlanco.png" class="logo-header"> -->
@@ -37,6 +42,14 @@
                 <input type="number" name="points">
             </div>
             <div class="form-group">
+                <label>Tipo de problema:</label>
+                <select  name="problemType">
+                    <option>Seleccionar</option>
+                    <option value="Ráfaga">Ráfaga</option>
+                    <option value= "Normal">Normal</option>
+                  </select>
+            </div>
+            <div class="form-group">
                 <label>Dificultad:</label>
                 <select  name="difficulty">
                     <option>Seleccionar</option>
@@ -54,14 +67,38 @@
                 <input type="text" name="explanation">
             </div>
             <div class="form-group">
-                <label>Tipo de Problema:</label>
-                <select  name="type">
+                <label>Tipo de Pregunta del problema:</label> <br>
+                <input type="radio" id="multiple" name="type" value="Múltiple" onclick="addOptions(0)">
+                <label for="multiple">Múltiple</label><br>
+                <input type="radio" id="abierta" name="type" value="Abierta", onclick="addOptions(1)">
+                <label for="abierta">Abierta</label><br>
+
+                <!-- <select  name="type">
                     <option>Seleccionar</option>
                     <option value="Múltiple">Múltiple</option>
                     <option value= "Abierta">Abierta</option>
-                  </select>
+                  </select> -->
                 
             </div>
+            <div class="form-group multOption">
+                <label>Opción 1:</label>
+                <input type="text" name="multOpt">
+            </div>
+            <div class="form-group multOption">
+                <label>Opción 2:</label>
+                <input type="text" name="multOpt">
+            </div>
+            <div class="form-group multOption">
+                <label>Opción 3:</label>
+                <input type="text" name="multOpt">
+            </div>
+            <div class="form-group multOption">
+                <label>Opción 4:</label>
+                <input type="text" name="multOpt">
+            </div>
+
+            <label>Pistas</label><br>
+
             <div class="form-group">
                 <label>Pista 1:</label>
                 <input type="text" name="hint">
@@ -101,4 +138,22 @@
         </nav>
     </section> 
  </body>
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+ <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+ <script>
+
+    
+    let options = document.getElementsByClassName("multOption");
+    function addOptions(pressed) {
+        for (var i = 0; i < options.length; i++) {
+            if ( pressed == 0) {
+            options[i].style.display = "block";
+            }
+            else {
+                options[i].style.display = "none";
+            }
+        }
+        
+    }
+ </script>
 </html>

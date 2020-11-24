@@ -61,12 +61,41 @@
                 <aside class="bg-white mt-6 lg:mt-0 rounded-lg shadow-lg w-fixed p-2 h-40">
                     <h1 class="text-center">Ráfagas</h1>
                     <hr class=" w-1/2 my-2 mx-auto">
+                    <div class="flex justify-between mt-2">
+                        <h1 class="text-green-700 font-semibold">Sumas</h1>
+                        <p>  <%= user.burstTopics.additions %>  </p>
+                    </div>
+                    <div class="flex justify-between mt-1">
+                        <h1 class="text-green-700 font-semibold">Restas</h1>
+                        <p>  <%= user.burstTopics.substractions %>  </p>
+                    </div>
+                    <div class="flex justify-between mt-1">
+                        <h1 class="text-green-700 font-semibold">Multiplicaciones</h1>
+                        <p>  <%= user.burstTopics.multiplications %>  </p>
+                    </div>
+                    <div class="flex justify-between mt-1">
+                        <h1 class="text-green-700 font-semibold">Divisiones</h1>
+                        <p>  <%= user.burstTopics.divisions %>  </p>
+                    </div>
+                    <div class="flex justify-between mt-1">
+                        <h1 class="text-green-700 font-semibold">Fracciones</h1>
+                        <p>  <%= user.burstTopics.fractions %>  </p>
+                    </div>
+                    <div class="flex justify-between mt-1">
+                        <h1 class="text-green-700 font-semibold">Combinada</h1>
+                        <p>  <%= user.burstTopics.mixed %>  </p>
+                    </div>
                 </aside>
             </div>
-
+            
             <div class="flex justify-center my-12">
                 <div class="md:w-1/2 lg:w-2/6">
-                    <canvas id="myChart" width="256" height="256"></canvas>
+                    <canvas id="myProblemsChart" width="256" height="256"></canvas>
+                </div>
+            </div>
+            <div class="flex justify-center my-12">
+                <div class="md:w-1/2 lg:w-2/6">
+                    <canvas id="myBurstsChart" width="256" height="256"></canvas>
                 </div>
             </div>
 
@@ -131,10 +160,10 @@
     const { problemSetDifficulty } = userInfo;
 
     const easy = problemSetDifficulty.easy;
-    const medium = problemSetDifficulty.easy;
-    const hard = problemSetDifficulty.easy;
+    const medium = problemSetDifficulty.medium
+    const hard = problemSetDifficulty.hard;
 
-    const ctx = document.getElementById('myChart');
+    const ctx = document.getElementById('myProblemsChart');
     const DoughnutData = {
         datasets: [{
             data: [
@@ -168,6 +197,72 @@
         type: 'doughnut',
         data: DoughnutData
     });
+
+
+
+    //SEGUNDA GRAFICA
+    const { burstTopics } = userInfo;
+
+    const sumas = burstTopics.additions;
+    const restas = burstTopics.substractions;
+    const multiplicaciones = burstTopics.multiplications;
+    const divisiones = burstTopics.divisions;
+    const fracciones = burstTopics.fractions;
+    const combinada = burstTopics.mixed;
+
+    const ctx2 = document.getElementById('myBurstsChart');
+    const DoughnutData2 = {
+        datasets: [{
+            data: [
+                sumas,
+                restas,
+                multiplicaciones,
+                divisiones,
+                fracciones,
+                combinada
+
+            ],
+            backgroundColor: [
+                'rgba(0, 256, 0, 0.5)',
+                'rgba(251, 140, 0, 0.5)',
+                'rgba(256, 0, 0, 0.5)',
+                'rgba(0, 256, 0, 0.5)',
+                'rgba(251, 140, 0, 0.5)',
+                'rgba(256, 0, 0, 0.5)'
+            ],
+            borderColor: [
+                'rgba(0, 256, 0, 1)',
+                'rgba(251, 140, 0, 1)',
+                'rgba(256, 0, 0, 1)',
+                'rgba(0, 256, 0, 0.5)',
+                'rgba(251, 140, 0, 0.5)',
+                'rgba(256, 0, 0, 0.5)'
+            ],
+            hoverBackgroundColor : [
+                'rgba(0, 256, 0, 1)',
+                'rgba(251, 140, 0, 1)',
+                'rgba(256, 0, 0, 1)',
+                'rgba(0, 256, 0, 0.5)',
+                'rgba(251, 140, 0, 0.5)',
+                'rgba(256, 0, 0, 0.5)'
+            ]
+        }],
+        labels: [
+            'Sumas',
+            'Restas',
+            'Multiplicaciones',
+            'Divisiones',
+            'Fracciones',
+            'Combinada'
+        ]
+    };
+    const DoughnutChart2 = new Chart(ctx2, {
+        type: 'doughnut',
+        data: DoughnutData2
+    });
+    //FIN SEGUNDA GRAFICA
+
+
 
 
     let isEditing = false;

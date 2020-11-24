@@ -106,7 +106,8 @@
             $('#correct_banner').removeClass('hidden');
 
             var info = {
-                responses: ["<%- problem._id %>"]
+                responses: ["<%- problem._id %>"],
+                type: "normal"
             };
 
             $.post("/submit-answer", info, function (data) {
