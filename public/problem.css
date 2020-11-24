@@ -1,7 +1,7 @@
 .pestana {
     width: 32.5%;
     padding: 3px 0 3px 0;
-    border: 3px solid bisque;
+    border: 3px solid #F1E189;
     background-color: white;
 }
 
@@ -15,15 +15,15 @@
 }
 
 .active[id="redaccion"] {
-    background: #01DF01;
+    background: #AF8BAF;
 }
 
 .active[id="pistas"] {
-    background: #FFBF00;
+    background: #B8DE6F;
 }
 
 .active[id="solucion"] {
-    background: #848484;
+    background: #01C5C4;
 }
 
 .contenido {
