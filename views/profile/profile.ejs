@@ -58,47 +58,45 @@
                     </div>
                 </aside>
 
-                <aside class="bg-white mt-6 lg:mt-0 rounded-lg shadow-lg w-fixed p-2 h-40">
-                    <h1 class="text-center">Ráfagas</h1>
+                <aside class="bg-white mt-6 lg:mt-0 rounded-lg shadow-lg w-fixed p-2 h-60">
+                    <h1 class="text-center">RÁFAGAS</h1>
                     <hr class=" w-1/2 my-2 mx-auto">
                     <div class="flex justify-between mt-2">
-                        <h1 class="text-green-700 font-semibold">Sumas</h1>
-                        <p>  <%= user.burstTopics.additions %>  </p>
+                        <h1 class="text-add font-semibold">Sumas</h1>
+                        <p> <%= user.burstTopics.additions %> </p>
                     </div>
                     <div class="flex justify-between mt-1">
-                        <h1 class="text-green-700 font-semibold">Restas</h1>
-                        <p>  <%= user.burstTopics.substractions %>  </p>
+                        <h1 class="text-subs font-semibold">Restas</h1>
+                        <p> <%= user.burstTopics.substractions %> </p>
                     </div>
                     <div class="flex justify-between mt-1">
-                        <h1 class="text-green-700 font-semibold">Multiplicaciones</h1>
-                        <p>  <%= user.burstTopics.multiplications %>  </p>
+                        <h1 class="text-mult font-semibold">Multiplicaciones</h1>
+                        <p> <%= user.burstTopics.multiplications %> </p>
                     </div>
                     <div class="flex justify-between mt-1">
-                        <h1 class="text-green-700 font-semibold">Divisiones</h1>
-                        <p>  <%= user.burstTopics.divisions %>  </p>
+                        <h1 class="text-div font-semibold">Divisiones</h1>
+                        <p> <%= user.burstTopics.divisions %> </p>
                     </div>
                     <div class="flex justify-between mt-1">
-                        <h1 class="text-green-700 font-semibold">Fracciones</h1>
-                        <p>  <%= user.burstTopics.fractions %>  </p>
+                        <h1 class="text-frac font-semibold">Fracciones</h1>
+                        <p> <%= user.burstTopics.fractions %> </p>
                     </div>
                     <div class="flex justify-between mt-1">
-                        <h1 class="text-green-700 font-semibold">Combinada</h1>
-                        <p>  <%= user.burstTopics.mixed %>  </p>
+                        <h1 class="text-comb font-semibold">Combinada</h1>
+                        <p> <%= user.burstTopics.mixed %> </p>
                     </div>
                 </aside>
             </div>
-            
-            <div class="flex justify-center my-12">
-                <div class="md:w-1/2 lg:w-2/6">
-                    <canvas id="myProblemsChart" width="256" height="256"></canvas>
-                </div>
-            </div>
-            <div class="flex justify-center my-12">
-                <div class="md:w-1/2 lg:w-2/6">
-                    <canvas id="myBurstsChart" width="256" height="256"></canvas>
-                </div>
-            </div>
 
+            <div class="flex flex-col lg:flex-row items-center justify-around my-12">
+                <div class="md:w-1/2 lg:w-2/6">
+                    <canvas id="myProblemsChart" width="200" height="200"></canvas>
+                </div>
+
+                <div class="md:w-1/2 lg:w-2/6">
+                    <canvas id="myBurstsChart" width="200" height="200"></canvas>
+                </div>
+            </div>
 
         </section>
 
@@ -223,28 +221,28 @@
 
             ],
             backgroundColor: [
-                'rgba(0, 256, 0, 0.5)',
-                'rgba(251, 140, 0, 0.5)',
-                'rgba(256, 0, 0, 0.5)',
-                'rgba(0, 256, 0, 0.5)',
-                'rgba(251, 140, 0, 0.5)',
-                'rgba(256, 0, 0, 0.5)'
+                '#FF414D',
+                '#F39233',
+                '#F1E189',
+                '#B8DE6F',
+                '#01C5C4',
+                '#AF8BAF'
             ],
             borderColor: [
-                'rgba(0, 256, 0, 1)',
-                'rgba(251, 140, 0, 1)',
-                'rgba(256, 0, 0, 1)',
-                'rgba(0, 256, 0, 0.5)',
-                'rgba(251, 140, 0, 0.5)',
-                'rgba(256, 0, 0, 0.5)'
+                '#EE0011',
+                '#E87B0E',
+                '#EBD553',
+                '#9FD23A',
+                '#01AFAB',
+                '#966896'
             ],
-            hoverBackgroundColor : [
-                'rgba(0, 256, 0, 1)',
-                'rgba(251, 140, 0, 1)',
-                'rgba(256, 0, 0, 1)',
-                'rgba(0, 256, 0, 0.5)',
-                'rgba(251, 140, 0, 0.5)',
-                'rgba(256, 0, 0, 0.5)'
+            hoverBackgroundColor: [
+                '#EE0011',
+                '#E87B0E',
+                '#EBD553',
+                '#9FD23A',
+                '#01AFAB',
+                '#966896'
             ]
         }],
         labels: [

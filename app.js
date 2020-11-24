@@ -50,16 +50,15 @@ app.get("/lista-problemas", redirectLogin, async function (req, res, next) {
 // vista de un problema
 app.get("/problema", redirectLogin, async function (req, res) {
     const problema = await getProblem(req.query.id);
-    res.render("problem/problem", { problem: problema, length: 1, index: 0, problemAction: 'problema',  problemType: 'normal'});
+    res.render("problem/problem", { problem: problema, length: 1, index: 0, problemAction: 'problema', problemType: 'normal' });
 });
 
-app.get("/all-blasts", redirectLogin, async function(req, res){
+app.get("/all-blasts", redirectLogin, async function (req, res) {
     const rafagas = await loadBlasts();
-    res.render("blasts-list", {blasts: rafagas, tab:'rafaga'});
+    res.render("blasts-list", { blasts: rafagas, tab: 'rafaga' });
 });
 
-
-app.get('/blast', redirectLogin, async function(req, res){
+app.get('/blast', redirectLogin, async function (req, res) {
     const blastId = req.query.id;
     const blastSelected = await getBlast(blastId);
     let array = [];
@@ -68,9 +67,9 @@ app.get('/blast', redirectLogin, async function(req, res){
         array.push(problem);
     }
 
-    
+
     // me gustaria cambiar el nombre de la variable rafagas por questions
-    res.render('problem/rafaga', { blast: blastSelected, rafagas: array, length: array.length, index: 0, problemAction: 'rafaga' ,tab:'rafaga', problemType: 'rafaga' });
+    res.render('problem/rafaga', { blast: blastSelected, rafagas: array, length: array.length, index: 0, problemAction: 'rafaga', tab: 'rafaga', problemType: 'rafaga' });
 });
 
 app.get("/signup", redirectHome, function (req, res) {
@@ -140,7 +139,7 @@ app.post("/profile", redirectLogin, async function (req, res) {
 
 app.post("/submit-answer", function (req, res, next) {
     if (req.body.type == "blast") {
-        
+
         addBlastToUser(req.body.blastId, USER_ID);
     }
 

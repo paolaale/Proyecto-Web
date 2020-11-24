@@ -5,3 +5,27 @@
 .outline:focus {
     outline: none;
 }
+
+.text-add {
+    color: #FF414D;
+}
+
+.text-subs {
+    color: #F39233;
+}
+
+.text-mult {
+    color: #F1E189;
+}
+
+.text-div {
+    color: #B8DE6F;
+}
+
+.text-frac {
+    color: #01C5C4;
+}
+
+.text-comb {
+    color: #AF8BAF;
+}

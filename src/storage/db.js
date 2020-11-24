@@ -66,7 +66,7 @@ const blastSchema = mongoose.Schema({
     topic: { type: String, required: true },
     description: { type: String, required: true },
     difficulty: String,
-    problemsBlast: {type: [String], required: true}
+    problemsBlast: { type: [String], required: true }
 });
 
 // Creación de esquemas
@@ -78,8 +78,8 @@ const Blast = mongoose.model("Blast", blastSchema);
 
 // Metodos publicos
 
-const getUsers = async() => {
-    const users = await User.find({}).sort({score: -1});
+const getUsers = async () => {
+    const users = await User.find({}).sort({ score: -1 });
     return users;
 };
 
@@ -195,17 +195,17 @@ const addProblem = (info) => {
 
 const loadProblems = async grade => {
     let filter = {};
-    if (grade){
+    if (grade) {
         const sGrade = parseInt(grade);
         filter = { "schoolGrade": sGrade, "problemType": "Normal" };
     }
     else {
         filter = { "problemType": "Normal" };
-    } 
-    
+    }
+
     const foundProblems = await Problem.find(filter).exec();
     if (foundProblems) {
-        
+
         return foundProblems;
     }
     return null;
@@ -221,7 +221,7 @@ const getProblem = async problemId => {
 
 const searchProblem = async info => {
     console.log();
-    const foundProblems = await Problem.find({$or:[{name: {$regex: '.*' + info + '.*', $options:'i'}}, {id: {$regex: '.*' + info + '.*', $options:'i'}}]}).exec();
+    const foundProblems = await Problem.find({ $or: [{ name: { $regex: '.*' + info + '.*', $options: 'i' } }, { id: { $regex: '.*' + info + '.*', $options: 'i' } }] }).exec();
     if (foundProblems) {
         return foundProblems;
     }
@@ -232,8 +232,8 @@ const addProblemToUser = async (problemsId, userId) => {
     const user = await getUserInfo(userId);
     const setOfProblems = user.problemSet;
 
-    for(let i=0; i<problemsId.length; i++) {
-        
+    for (let i = 0; i < problemsId.length; i++) {
+
         if (!setOfProblems.includes(problemsId[i])) {
             user.problemSet.push(problemsId[i]);
             const problem = await Problem.findById(problemsId[i]);
@@ -275,10 +275,10 @@ const addBlast = async (info) => {
 };
 
 const loadBlasts = async () => {
-    
+
     const foundBlasts = await Blast.find().exec();
     if (foundBlasts) {
-        
+
         return foundBlasts;
     }
     return null;
@@ -300,7 +300,7 @@ const addBlastToUser = async (blastId, userId) => {
     if (!setOfBlasts.includes(blastId)) {
         user.burstSet.push(blastId);
         const blast = await Blast.findById(blastId);
- 
+
 
         if (blast.topic === "Sumas") {
             user.burstTopics.additions = user.burstTopics.additions + 1;
@@ -322,7 +322,7 @@ const addBlastToUser = async (blastId, userId) => {
         }
         await user.save();
     }
-    
+
 };
 
 module.exports = {
