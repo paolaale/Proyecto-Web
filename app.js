@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const ejs = require("ejs");
 const app = express();
+const { IMGAGES_URL } = require('./src/imagesProfileUrls');
 const { registerUser, loginUser, getUserInfo, updateUser, addProblem, loadProblems, getProblem, searchProblem, addProblemToUser, getUsers, addBlast, loadBlasts, getBlast, addBlastToUser } = require('./src/storage/db');
 
 
@@ -33,6 +34,11 @@ function redirectHome(req, res, next) {
 
 app.get("/", function (req, res) {
     res.render("landingPage");
+});
+
+app.get('/api/getImage', async function(req, res){
+    const { imageProfile } = await getUserInfo(USER_ID);
+    return res.json({img: imageProfile});
 });
 
 // vista principal iniciando sesión
@@ -128,13 +134,13 @@ app.get('/logout', redirectLogin, function (req, res) {
 
 app.get("/profile", redirectLogin, async function (req, res) {
     const user = await getUserInfo(USER_ID);
-    res.render("profile/profile", { user, tab: 'home' });
+    res.render("profile/profile", { user, tab: 'home', images: IMGAGES_URL });
 });
 
 app.post("/profile", redirectLogin, async function (req, res) {
     await updateUser(req.body, USER_ID);
     const user = await getUserInfo(USER_ID);
-    res.render("profile/profile", { user });
+    res.render("profile/profile", { user, tab: 'home', images: IMGAGES_URL });
 });
 
 app.post("/submit-answer", function (req, res, next) {

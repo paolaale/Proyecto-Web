@@ -8,8 +8,9 @@
 
     <%- include("./../../components/navbar") -%>
 
-    <aside id="finalPointsBanner" class="bg-white w-1/4 mx-auto p-4 text-center shadow-lg rounded-lg mt-5 hidden">
-        ¡Obtuviste <span id="finalPoints">0</span> puntos!
+    <aside id="finalPointsBanner" class="bg-white w-1/4 mx-auto p-4 text-center shadow-lg rounded-lg mt-5 pestana font-medium hidden">
+        <i class="fas fa-hat-wizard text-2xl purple-icon"></i>
+        <p> ¡Obtuviste <span id="finalPoints">0</span> puntos! </p>
     </aside>
 
     <% rafagas.forEach((rafaga, index) => {  %>

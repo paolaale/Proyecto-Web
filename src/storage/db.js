@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { encrypt, correctPassword } = require('./chyper');
+const { DEFAUTL_PROFILE } = require('./../imagesProfileUrls');
 
 const dbConfig = {
     dbName: 'leetmatDB',
@@ -14,6 +15,7 @@ mongoose.connect(urlConnection, { useNewUrlParser: true, useUnifiedTopology: tru
 // Delaración de esquemas
 const userSchema = mongoose.Schema({
     name: { type: String, required: true },
+    imageProfile: {type: String, require: true},
     lastName: { type: String, required: true },
     age: { type: Number, required: true },
     grade: { type: String, required: true },
@@ -77,7 +79,6 @@ const Blast = mongoose.model("Blast", blastSchema);
 
 
 // Metodos publicos
-
 const getUsers = async () => {
     const users = await User.find({}).sort({ score: -1 });
     return users;
@@ -97,6 +98,7 @@ const registerUser = async userInfo => {
     const hashPassword = await encrypt(password);
     const newUser = new User({
         name: name.toLowerCase(),
+        imageProfile: DEFAUTL_PROFILE,
         lastName: lastName.toLowerCase(),
         age: parseInt(age),
         grade,
@@ -138,7 +140,7 @@ const loginUser = async userInfo => {
 };
 
 const updateUser = async (formInfo, userId) => {
-    const validInputs = ['name', 'lastName', 'school', 'password'];
+    const validInputs = ['name', 'lastName', 'school', 'password', 'imageProfile'];
 
     const arrayInputs = validInputs.filter(ele => {
         return formInfo[ele] !== '';

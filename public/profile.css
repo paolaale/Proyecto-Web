@@ -29,3 +29,18 @@
 .text-comb {
     color: #AF8BAF;
 }
+
+.img-option{
+    width: 120px;
+    border: 2px solid rgba(139, 92, 246, .2);
+    border-radius: 20%;
+}
+
+.img-option:hover{
+    border: 5px solid #AF8BAF;
+}
+
+.img-selected{
+    border: 5px solid #AF8BAF;
+    border-radius: 20%;
+}
