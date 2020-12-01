@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const ejs = require("ejs");
 const app = express();
-const { registerUser, loginUser, getUserInfo, updateUser, addProblem, loadProblems, getProblem, searchProblem, addProblemToUser, getUsers, addBlast, loadBlasts, getBlast, addBlastToUser } = require('./src/storage/db');
+const { registerUser, loginUser, getUserInfo, updateUser, addProblem, loadProblems, getProblem, searchProblem, addProblemToUser, getUsers, addBlast, loadBlasts, getBlast, addBlastToUser, getProblemsSolved } = require('./src/storage/db');
 
 
 let IS_LOGGED = false;
@@ -44,7 +44,9 @@ app.get("/home", redirectLogin, function (req, res) {
 app.get("/lista-problemas", redirectLogin, async function (req, res, next) {
     currentGrade = req.query.grado;
     const problemas = await loadProblems(currentGrade);
-    res.render("problemsBoard", { problems: problemas, tab: 'problemas' });
+    const problemasResueltos = await getProblemsSolved(USER_ID);
+   
+    res.render("problemsBoard", { problems: problemas, tab: 'problemas', problemsSolved: problemasResueltos});
 });
 
 // vista de un problema
