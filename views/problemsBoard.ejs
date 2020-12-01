@@ -46,11 +46,31 @@
                                     <td class="border px-4 py-2 cursor-pointer hidden md:block"><%=problem.id%></td>
                                     <td class=" border px-4 py-2 cursor-pointer">
                                         <a href="/problema?id=<%=problem._id%>">
-                                            <%=problem.name%>
+                                            <%if (problemsSolved.includes(problem._id)) { %>
+                                                <%=problem.name%> <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-blue-600 text-blue-100" style="padding: 0px 5px;">
+                                                     Contestado
+                                                   </span>
+                                             <%} else {%>
+                                                 <%=problem.name%>
+                                             <%}%>
                                         </a>
                                     </td>
                                     <td class="border px-4 py-2 cursor-pointer"><%=problem.topic%></td>
-                                    <td class="border px-4 py-2 cursor-pointer"><%=problem.difficulty%></td>
+                                    <td class="border px-4 py-2 cursor-pointer text-center" onload="setColor('<%=problem.difficulty%>')">
+                                        <%if (problem.difficulty === "Fácil") { %>
+                                        <span class="inline-flex items-center rounded-md text-md font-medium bg-green-600 text-green-100" style="padding: 0px 15px;">
+                                            <%= problem.difficulty %>
+                                        </span>
+                                        <%} else if (problem.difficulty === "Media") {%>
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-md font-medium bg-yellow-600 text-yellow-100" style="padding: 0px 15px;">
+                                                <%=problem.difficulty%>
+                                            </span>
+                                        <%} else {%>
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-md font-medium bg-red-600 text-red-100" style="padding: 0px 15px;">
+                                                <%=problem.difficulty%>
+                                            </span>
+                                        <%}%>
+                                    </td>
                                     <td class="border px-4 py-2 cursor-pointer"><%=problem.schoolGrade%>°</td>
                                 </tr>
                                 <%});%>
@@ -107,3 +127,13 @@
     </main>
 </section>
 </body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    
+    function setColor(difficulty) {
+        
+    }
+</script>

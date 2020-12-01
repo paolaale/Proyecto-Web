@@ -327,6 +327,12 @@ const addBlastToUser = async (blastId, userId) => {
 
 };
 
+//Obtener problemas y ráfagas resueltas por el usuario
+const getProblemsSolved = async (userId) => {
+    const user = await getUserInfo(userId);
+    return user.problemSet;
+};
+
 module.exports = {
     registerUser,
     loginUser,
@@ -341,5 +347,6 @@ module.exports = {
     addBlast,
     loadBlasts,
     getBlast,
-    addBlastToUser
+    addBlastToUser,
+    getProblemsSolved
 };
