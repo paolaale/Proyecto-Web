@@ -15,8 +15,7 @@
                         <h1 class="text-gray-500 text-sm"> <%= user.email%> </h>
                     </div>
                     <div class="w-1/2 mx-auto my-3">
-                        <img src= <%= user.imageProfile %>
-                            alt="user-img" className="h-full w-full object-cover" />
+                        <img src=<%= user.imageProfile %> alt="user-img" className="h-full w-full object-cover" />
                     </div>
 
                     <div class="flex justify-between p-4">
@@ -141,7 +140,7 @@
                     <input type="text" name="imageProfile" id="imageProfile" class="hidden">
                     <div class="flex justify-around flex-wrap p-1">
                         <% images.forEach(image => {  %>
-                            <img class="img-option inline p-2 mx-5 my-3 p-5" src=<%=image%> data-image=<%=image%> >
+                        <img class="img-option inline mx-5 my-3 p-4" src=<%=image%> data-image=<%=image%>>
                         <% }); %>
                     </div>
                 </div>
@@ -290,7 +289,7 @@
         }
     });
 
-    $('.img-option').on('click', function(){
+    $('.img-option').on('click', function () {
         $('.img-option').removeClass('img-selected');
         $(this).addClass('img-selected');
         const newImage = $(this).attr('data-image');

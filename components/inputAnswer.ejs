@@ -1,77 +1,84 @@
 <h1 class="ml-5 mt-3 mb-5 font-bold">RESPUESTA</h1>
 
-<div id="wrong_banner" class="hidden w-2/4 mx-auto relative text-center rounded-lg py-2 mb-5 banner border-solid border-4 border-gray-600">
+<div id="wrong_banner"
+    class="hidden w-2/4 mx-auto relative text-center rounded-lg py-2 mb-5 banner border-solid border-4 border-gray-600">
     <h1 class="text-center text-2xl">Upss, ¡Intenta de nuevo!</h1>
     <i class="fas fa-frown-open text-3xl"></i>
-    <div class="flex flex-col mt-2" >
-        <button class="w-2/4 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 mx-auto mb-2 border-b-4 border-red-700 hover:border-red-500 rounded outline cerrar">
-            Cerrar
-        </button>
-
-        <button id="btn_try" class="w-2/4 bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 mx-auto mb-2 border-b-4 border-green-700 hover:border-green-500 rounded outline">
+    <div class="flex flex-col mt-2">
+        <a href="/lista-problemas">
+            <button
+                class="w-2/4 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 mx-auto mb-2 border-b-4 border-red-700 hover:border-red-500 rounded outline cerrar">
+                Cerrar
+            </button>
+        </a>
+        <button id="btn_try"
+            class="w-2/4 bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 mx-auto mb-2 border-b-4 border-green-700 hover:border-green-500 rounded outline">
             Intentar de nuevo
         </button>
-    </div>  
+    </div>
 </div>
 
-<div id="correct_banner" class="hidden w-11/12 mx-auto relative text-center rounded-lg py-2 mb-5 banner border-solid border-4 border-gray-600">
+<div id="correct_banner"
+    class="hidden w-11/12 mx-auto relative text-center rounded-lg py-2 mb-5 banner border-solid border-4 border-gray-600">
     <h1 class="text-center text-2xl">¡Felicidades!</h1>
-    <i class="fas fa-laugh-beam text-3xl"></i>  
-    <div class="flex flex-col mt-2" >
-        <button class="w-2/4 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 mx-auto mb-2 border-b-4 border-red-700 hover:border-red-500 rounded outline cerrar">
-            Cerrar
-        </button>
-
-        <a href="/home">
-            <button class="w-2/4 bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 mx-auto mb-2 border-b-4 border-green-700 hover:border-green-500 rounded outline">
+    <i class="fas fa-laugh-beam text-3xl"></i>
+    <div class="flex flex-col mt-2">
+        <a href="/lista-problemas">
+            <button
+                class="w-2/4 bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 mx-auto mb-2 border-b-4 border-green-700 hover:border-green-500 rounded outline">
                 Ir a la lista de problemas
             </button>
         </a>
-        
     </div>
 </div>
 <aside>
     <% if (problem.type === 'Abierta') {   %>
-        <div class="flex justify-center mb-5" id="single-answer">
-            <input placeholder="Tu respuesta" type="text" name="answer" id="single-answer-input" class="bg-gray-200 w-10/12 h-16 rounded-lg mx-auto py-3 px-3 shadow-inner outline"/>
-        </div>
-    
+    <div class="flex justify-center mb-5" id="single-answer">
+        <input id="single-answer-input" placeholder="Respuesta aquí" type="text" name="answer"
+            class="bg-gray-200 w-10/12 h-16 rounded-lg mx-auto py-3 px-3 shadow-inner outline" autocomplete="off" />
+    </div>
+
     <% } else {  %>
-        <div class="flex justify-around flex-row flex-wrap my-5 " id="multiple-answer">
-            <input type="text" value="" class="hidden" id="multiple-answer-input">
-            <%for (var i = 0; i < problem.answerOptions.length; i++){%>
-                <%if (0 != problem.answerOptions[i].localeCompare("")) { %>
-                    <div class="flex items-center justify-center w-5/12 my-2 h-16 rounded-lg hover:shadow-outline shadow-answer option-card bg-blue-100" data-answer="<%=problem.answerOptions[i]%>">  <%=problem.answerOptions[i]%> </div>
-                <%}%>
+    <div class="flex justify-around flex-row flex-wrap my-5 " id="multiple-answer">
+        <input id="multiple-answer-input" type="text" value="" class="hidden">
+        <%for (var i = 0; i < problem.answerOptions.length; i++){%>
+        <%if (0 != problem.answerOptions[i].localeCompare("")) { %>
+        <div class="flex items-center justify-center w-5/12 my-2 h-16 rounded-lg hover:shadow-outline shadow-answer option-card bg-blue-100"
+            data-answer="<%=problem.answerOptions[i]%>"> <%=problem.answerOptions[i]%> </div>
+        <%}%>
                                
             <%}%>
-            
-        </div>
+
+    </div>
     <%   }  %>
     <div class="flex justify-center mb-3">
         <% if (length-1 === index) {   %>
-        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded outline" id="submit">
+        <button
+            class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded outline"
+            id="submit">
             Calificar
         </button>
         <% } else {  %>
-            <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded outline next-button">
-                siguiente
-            </button>
+        <button
+            class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded outline next-button">
+            siguiente
+        </button>
         <%   }  %>
     </div>
 </aside>
 
 <script>
-    $('.cerrar').on('click', function(){
+    $('.cerrar').on('click', function () {
         $('.banner').addClass('hidden');
     });
 
-    $('#btn_try').on('click', function(){
-        $('#respuesta').val('');
+    $('#btn_try').on('click', function () {
+        $('#single-answer-input').val('');
+        $('#multiple-answer-input').val('');
         $('.banner').addClass('hidden');
     })
 
-    $('.option-card').on('click', function(){
+    $('.option-card').on('click', function () {
         $('.option-card').removeClass('selected-answer');
         $(this).addClass('selected-answer');
         $('#multiple-answer-input').val($(this).attr('data-answer'));
