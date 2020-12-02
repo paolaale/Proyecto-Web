@@ -7,7 +7,7 @@
     <section>
         <div class="mt-4 mb-5 pt-2 px-12 relative mx-auto text-gray-600">
             <h3 class="text-xl leading-9 tracking-tight font-bold text-gray-800 sm:text-2xl sm:leading-10">
-                Problemas
+                <%= title %> 
             </h3>
             <br>
             <form action="/search-problem" method="POST">
@@ -56,7 +56,7 @@
                                         </a>
                                     </td>
                                     <td class="border px-4 py-2 cursor-pointer"><%=problem.topic%></td>
-                                    <td class="border px-4 py-2 cursor-pointer text-center" onload="setColor('<%=problem.difficulty%>')">
+                                    <td class="border px-4 py-2 cursor-pointer text-center">
                                         <%if (problem.difficulty === "Fácil") { %>
                                         <span class="inline-flex items-center rounded-md text-md font-medium bg-green-600 text-green-100" style="padding: 0px 15px;">
                                             <%= problem.difficulty %>
@@ -71,7 +71,7 @@
                                             </span>
                                         <%}%>
                                     </td>
-                                    <td class="border px-4 py-2 cursor-pointer"><%=problem.schoolGrade%>°</td>
+                                    <td class="border px-4 py-2 cursor-pointer text-center"><%=problem.schoolGrade%>°</td>
                                 </tr>
                                 <%});%>
                             </tbody>
@@ -89,37 +89,55 @@
                 <div class="mb-4">
                     <h2 class="text-lg leading-6 font-normal text-gray-900 mb-2">Temas</h2>
                     <span class="inline-flex rounded-md shadow-sm">
+                        <a href="/lista-problemas?tema=Multiplicaciones%20y%20Divisiones&titulo=Multiplicaciones%20y%20Divisiones">
                         <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                          Tema 1
+                            Multiplicaciones y Divisiones
                         </button>
                     </span>
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                          Tema 2
-                        </button>
+                        <a href="/lista-problemas?tema=Sumas%20y%20Restas&titulo=Sumas%20y%20Restas">
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                                Sumas y Restas
+                            </button>
+                        </a>
                     </span>
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                          Tema 3
-                        </button>
+                        <a href="/lista-problemas?tema=Fracciones&titulo=Fracciones">
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                                Fracciones
+                            </button>
+                        </a>
+                    </span>
+                    <span class="inline-flex rounded-md shadow-sm">
+                        <a href="/lista-problemas?tema=Equivalencias&titulo=Equivalencias">
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                                Equivalencias
+                            </button>
+                        </a>
                     </span>
                 </div>
                 <div class="mb-4">
                     <h2 class="text-lg leading-6 font-normal text-gray-900 mb-2">Dificultad</h2>
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                          Fácil
-                        </button>
+                        <a href="/lista-problemas?dificultad=Fácil&titulo=Fácil">
+                            <button type="button"  class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                                Fácil
+                            </button>
+                        </a>
                     </span>
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                          Medio
-                        </button>
+                        <a href="/lista-problemas?dificultad=Media&titulo=Media">
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                                Media
+                            </button>
+                        </a>
                     </span>
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                          Díficil
-                        </button>
+                        <a href="/lista-problemas?dificultad=Difícil&titulo=Difícil">
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-900 hover:bg-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                                Díficil
+                            </button>
+                        </a>
                     </span>
                 </div>
             </aside> 
@@ -132,8 +150,7 @@
     crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
-    
-    function setColor(difficulty) {
-        
-    }
+
+
+
 </script>

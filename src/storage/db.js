@@ -195,15 +195,19 @@ const addProblem = (info) => {
     });
 };
 
-const loadProblems = async grade => {
-    let filter = {};
+const loadProblems = async (grade, difficulty, topic) => {
+    let filter = { "problemType": "Normal" };
     if (grade) {
         const sGrade = parseInt(grade);
-        filter = { "schoolGrade": sGrade, "problemType": "Normal" };
+        filter["schoolGrade"] = sGrade;
     }
-    else {
-        filter = { "problemType": "Normal" };
+    if (difficulty) {
+        filter["difficulty"] = difficulty;
     }
+    if (topic) {
+        filter["topic"] = topic;
+    }
+    
 
     const foundProblems = await Problem.find(filter).exec();
     if (foundProblems) {

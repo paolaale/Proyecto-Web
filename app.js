@@ -48,10 +48,19 @@ app.get("/home", redirectLogin, function (req, res) {
 
 // vista tras escoger grado
 app.get("/lista-problemas", redirectLogin, async function (req, res, next) {
+    //variables in order to filter
     currentGrade = req.query.grado;
-    const problemas = await loadProblems(currentGrade);
+    const difficulty = req.query.dificultad;
+    const topic = req.query.tema;
+
+    const problemas = await loadProblems(currentGrade, difficulty, topic);
     const problemasResueltos = await getProblemsSolved(USER_ID);
-    res.render("problemsBoard", { problems: problemas, tab: 'problemas', problemsSolved: problemasResueltos });
+
+    let titulo = req.query.titulo;
+    if (titulo == undefined) {
+        titulo = "Todos los problemas";
+    }
+    res.render("problemsBoard", { problems: problemas, tab: 'problemas', problemsSolved: problemasResueltos, title: "Problemas: " + titulo});
 });
 
 // vista de un problema
