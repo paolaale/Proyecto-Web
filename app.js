@@ -36,9 +36,9 @@ app.get("/", function (req, res) {
     res.render("landingPage");
 });
 
-app.get('/api/getImage', async function(req, res){
+app.get('/api/getImage', async function (req, res) {
     const { imageProfile } = await getUserInfo(USER_ID);
-    return res.json({img: imageProfile});
+    return res.json({ img: imageProfile });
 });
 
 // vista principal iniciando sesión
@@ -56,11 +56,14 @@ app.get("/lista-problemas", redirectLogin, async function (req, res, next) {
     const problemas = await loadProblems(currentGrade, difficulty, topic);
     const problemasResueltos = await getProblemsSolved(USER_ID);
 
-    let titulo = req.query.titulo;
-    if (titulo == undefined) {
+    let titulo = "";
+    if (req.query.titulo == undefined) {
         titulo = "Todos los problemas";
+    } else {
+        titulo = "Problemas: " + req.query.titulo;
     }
-    res.render("problemsBoard", { problems: problemas, tab: 'problemas', problemsSolved: problemasResueltos, title: "Problemas: " + titulo});
+
+    res.render("problemsBoard", { problems: problemas, tab: 'problemas', problemsSolved: problemasResueltos, title: titulo });
 });
 
 // vista de un problema
