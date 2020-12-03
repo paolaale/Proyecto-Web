@@ -11,6 +11,7 @@ const { registerUser, loginUser, getUserInfo, updateUser, addProblem, loadProble
 let IS_LOGGED = false;
 let USER_ID = null;
 let currentGrade = '';
+let problemasResueltos = [];
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -54,7 +55,7 @@ app.get("/lista-problemas", redirectLogin, async function (req, res, next) {
     const topic = req.query.tema;
 
     const problemas = await loadProblems(currentGrade, difficulty, topic);
-    const problemasResueltos = await getProblemsSolved(USER_ID);
+    problemasResueltos = await getProblemsSolved(USER_ID);
 
     let titulo = "";
     if (req.query.titulo == undefined) {
@@ -135,7 +136,7 @@ app.post("/login", redirectHome, async function (req, res) {
 //Buscador de problemas en el board de problemas
 app.post("/search-problem", redirectLogin, async function (req, res) {
     const problemas = await searchProblem(req.body.search);
-    res.render("problemsBoard", { problems: problemas, tab: 'problemas' });
+    res.render("problemsBoard", { problems: problemas, tab: 'problemas', problemsSolved: problemasResueltos, title: 'Buscaste "' + req.body.search + '"' });
 });
 
 app.get('/logout', redirectLogin, function (req, res) {
